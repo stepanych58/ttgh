@@ -19,6 +19,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @SpringBootApplication
@@ -50,7 +52,11 @@ public class FixerApplication {
             ListValue tv = new ListValue("Телевизор");
             ListValue washingMachine = new ListValue("Стиральная Машинка");
             ListValue stove = new ListValue("Газовая плита");
-            List<ListValue> equipments = List.of(fridge, tv, washingMachine, stove);
+            List<ListValue> equipments = new LinkedList<ListValue>();
+            equipments.add(fridge);
+            equipments.add(tv);
+            equipments.add(washingMachine);
+            equipments.add(stove);
             OrderAttribute equipment = new OrderAttribute("Что чиним", AttrType.LIST, equipments);
 
             OrderAttribute description = new OrderAttribute("Напишите что произошло", AttrType.TEXT);
@@ -60,7 +66,7 @@ public class FixerApplication {
             OrderAttribute clientName = new OrderAttribute("Ваше Имя", AttrType.TEXT);
             OrderAttribute phoneNumber = new OrderAttribute("Ваш номер телефона", AttrType.PHONE_NUMBER);
             OrderAttribute address = new OrderAttribute("Ваш Адрес", AttrType.ADDRESS);
-            List<OrderAttribute> listAttrsThatShouldBeInSystem = List.of(
+            List<OrderAttribute> listAttrsThatShouldBeInSystem = Arrays.asList(
                     equipment, description, photo, dateAttr, clientName, phoneNumber,address
             );
             OrderParameter dateParam = new OrderParameter(dateAttr, "24/09/2020");
@@ -68,7 +74,7 @@ public class FixerApplication {
             OrderParameter eqParam = new OrderParameter(equipment, "холодильник");
             OrderParameter photoParam = new OrderParameter(photo, "photo");
             ClientOrder svetlanaOrder = new ClientOrder(
-                    List.of(dateParam, descriptionParam, photoParam, eqParam),
+                    Arrays.asList(dateParam, descriptionParam, photoParam, eqParam),
                     sveta,
                     genadii);
 
