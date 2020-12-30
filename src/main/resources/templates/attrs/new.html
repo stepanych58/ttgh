@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/attrs}" th:object="${attr}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <label for="attrType">Select attr type: </label>
+    <select name="attrType" id="attrType">
+        <div th:each="attrType : ${attrTypes}">
+<!--            <a th:href="@{/attrs/{id}(id=${attrType.getId()})}" th:text="${attrType.getName()}">attrType</a>-->
+            <option th:value="${attrType}" th:text="${attrType}"> </option>
+        </div>
+    </select>
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+
+</body>
+</html>

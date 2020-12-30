@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ALL</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+
+<div th:each="attr : ${attrs}">
+    <a th:href="@{/attrs/{id}(id=${attr.getId()})}" th:text="${attr.getName()}">attr</a>
+    <a th:href="@{/attrs/{id}/edit(id=${attr.getId()})}" th:text="Edit">attr</a>
+    <a th:href="@{/attrs/{id}/delete(id=${attr.getId()})}" th:text="Delete">attr</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/attrs/new">Create new attr</a>
+<div id="app">
+    {{ message }}
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Привет, Vue!'
+        }
+    })
+</script>
+</body>
+</html>

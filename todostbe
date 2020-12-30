@@ -1,0 +1,75 @@
+-design Login page
+-adding users with spring security with password
+-design user lk page
+  should be button 'make order'
+-design create order page
+-add handling exceptions
+  if User already exis
+
+--не забыть про кейс смены номера пользователем,
+и подумать над кейсом когда у пользователя несколько номеров
+-- поиграть с аутентификацией через
+  -гугл
+  -яндекс
+  -вконтакте
+
+
+
+Сделать рабочими поля для добовления фотографий,
+сделать чтобы при заполнении поля "Напишите что произошло"
+при максимально возможном количестве символов в строке создавалась новая строка с переводом на неё курсора
+
+
+need to use Ajax for rendering html pages
+
+Вынести базу данных и java в отдельный докер контейнер,
+а клиентскую часть разрабатывать на отдельном веб сервере
+
+
+drop table billing_item;
+drop table order_parameter;
+drop table client_order;
+drop table fixer_user;
+drop table list_value;
+drop table order_attribute;
+
+
+{
+    "parameters": [{
+            "attribute": {
+                "id": 11,
+                "name": "Когда приехать",
+                "type": "DATE"
+            },
+            "value": "24/09/2020"
+        }, {
+            "attribute": {
+                "id": 9,
+                "name": "Напишите что произошло",
+                "type": "TEXT"
+            },
+            "value": "сломался TelePhone"
+        }, {
+            "attribute": {
+                "id": 10,
+                "name": "Добавьте фото",
+                "type": "DATA"
+            },
+            "value": "photo222"
+        }, {
+            "attribute": {
+                "id": 4,
+                "name": "Что чиним",
+                "type": "LIST"
+            },
+            "value": "TelePhone"
+        }
+    ],
+    "client": {
+        "name": "Stanislav",
+        "phoneNumber": "89222574233",
+        "password": null,
+        "passwordConfirm": null,
+        "role": "CLIENT"
+    }
+}

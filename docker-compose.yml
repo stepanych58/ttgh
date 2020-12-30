@@ -1,0 +1,52 @@
+version: "3"
+services:
+  springapp:
+    build: .
+    container_name: springapp
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+    ports:
+      - 8000:8080
+    restart: always
+    depends_on:
+      - db
+    networks:
+      back-end:
+#  networks: stepan_network
+  db:
+    image: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1q2q3q
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5000:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    networks:
+      back-end:
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: exus_3@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: secret
+      PGADMIN_LISTEN_PORT: 8500
+    ports:
+      - "8089:8500"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    links:
+      - "db:pgsql-server"
+    networks:
+      back-end:
+
+volumes:
+  pgdata:
+  pgadmin-data:
+
+networks:
+  back-end:

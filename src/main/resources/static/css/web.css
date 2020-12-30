@@ -1,0 +1,318 @@
+input,
+button,
+textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+input::-webkit-input-placeholder {
+ text-align: center;
+}
+
+button {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+}
+
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+    font-size: inherit;
+    font-weight: 400;
+}
+
+/*--------------------------*/
+
+body {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+
+/*  вся оболочка   */
+.wrapper {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #E2E7F5;
+}
+
+
+/*   шапка    */
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    background: #FFFFFF;
+    color: #fff;
+}
+
+.header__section {
+    display: flex;
+    align-items: center;
+}
+
+.header__item {
+    padding: 10px 15px;
+    font-size: 20px;
+    margin-left: 5px;
+    color: #000000;
+}
+
+.headerbuttom:hover {
+    background-color: #FFE600;
+    border-radius: 4px;
+}
+
+.headerlogo {
+    font-weight: bold;
+}
+
+.headerlogo a {
+    color: #000 !important;
+}
+
+.header__item a {
+    color: #000 !important;
+    text-decoration: none
+}
+
+
+/*  контентная часть   */
+.sing {
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.buttom {
+    padding-top: 2%;
+    display: flex;
+    justify-content: center;
+    /*height: 300px;*/
+}
+
+.block__title {
+    width: auto;
+    height: fit-content;
+    background-color: #fff;
+    padding: 32px;
+    box-shadow: 0 4px 16px #ccc;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+
+
+}
+
+
+.buttom__title {
+    text-align: center;
+
+}
+
+/*   кнопки  */
+.form__input,
+.form__buttom {
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+.form__title {
+    text-align: center;
+    margin: 0 0 4% 0;
+    font-weight: normal;
+}
+
+.form__group {
+    position: relative;
+    margin-bottom: 32px;
+}
+
+.form__label {
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    color: #9e9e9e;
+    transition: 0.3s;
+}
+
+.form__input {
+    width: 100%;
+    padding: 0 0 10px 0;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: transparent;
+    outline: none;
+    transition: 0.3s;
+}
+
+.phone_number__input {
+    text-align: center;
+}
+
+.form__input:focus {
+    border-bottom: 1px solid #1a73a8;
+}
+
+.form__buttom {
+    /*margin-top:  5%;*/
+    padding: 10px 20px;
+    border: none;
+    color: #000000;
+    background-color: #FFF740;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form__buttom:focus,
+.form__buttom:hover {
+    background-color: (0, 240, 0.7);
+}
+
+.form__input:focus ~ .form__label,
+.form__input:not(:placeholder-shown) ~ .form__label {
+    top: -18px;
+    font-size: 12px;
+    color: #e0e0e0;
+}
+
+
+/*    подвал    */
+.footer {
+    margin-top: auto;
+}
+
+.footer__box_element {
+
+    height: 100px;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+
+.style__date {
+    position: relative;
+    /* top: 0px; */
+    /* right: 50px; */
+    /* border: 1px solid #cac8c8; */
+    font-family: serif;
+    /* font-size: 23px; */
+    color: #000000;
+}
+
+.style__time {
+    position: relative;
+    /* top: -34px; */
+    /* right: -101px; */
+    border: 1px solid #cac8c8;
+    padding: 1px;
+    font-family: serif;
+    /* font-size: 23px; */
+    color: #000000;
+}
+
+.address_items {
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    border-color: #1a73a8;
+    background: #E2E7F5;
+}
+
+.address_item:hover {
+    background: #FFFFFF;
+    background-color: #e2dddd;
+    position: initial;
+    width: inherit;
+    border: 1px solid #1a73a8;
+}
+
+.list_items {
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    border-color: #1a73a8;
+    background: #E2E7F5;
+}
+
+.list_item:hover {
+    background: #FFFFFF;
+    background-color: #e2dddd;
+    position: initial;
+    width: inherit;
+    border: 1px solid #1a73a8;
+}
+
+.example-2 .btn-tertiary {
+    color: #555;
+    padding: 0;
+    line-height: 40px;
+    width: 300px;
+    margin: auto;
+    display: block;
+    border: 2px solid #555
+}
+
+.example-2 .btn-tertiary:hover, .example-2 .btn-tertiary:focus {
+    color: #888;
+    border-color: #888;
+}
+
+.example-2 .input-file {
+    width: .1px;
+    height: .1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.example-2 .input-file + .js-labelFile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 10px;
+    cursor: pointer;
+    background-image: url("../images/add_file.png");
+    background-repeat: no-repeat;
+    background-position: left 23% bottom 20%;
+}
+
+.example-2 .input-file + .js-labelFile .icon:before {
+    /*content: "\f093"*/
+}
+
+.example-2 .input-file + .js-labelFile.has-file .icon:before {
+    content: "\f00c";
+    color: #5AAC7B;
+}
+
+.previewUploadedFile {
+    width: 3%;
+}

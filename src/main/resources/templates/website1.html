@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Твой Техник</title>
+    <link rel="stylesheet" href="/css/web.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8">
+    <script src="/js/mainpage.js"></script>
+</head>
+
+<body>
+<!--<div id="like_button_container"></div>-->
+<div class="wrapper">
+    <div class="header">
+        <div class="header__section">
+            <div class="header__item headerlogo">Твой Техник</div>
+            <div class="header__item headerbuttom"><a href="#">Пользователям</a></div>
+            <div class="header__item headerbuttom"><a href="#">Что Чиним?</a></div>
+            <div class="header__item headerbuttom"><a href="#">О нас</a></div>
+            <div class="header__item headerbuttom"><a href="#">Партнерам</a></div>
+        </div>
+        <div class="header__section">
+            <div class="header__item headerbuttom"><a href="#">Войти</a></div>
+        </div>
+    </div>
+    <!--form class="form" -->
+    <div class="buttom">
+        <div class="block__title">
+            <div class="buttom__title" id="content">
+                <h1 class="form__title" id="page_title"></h1>
+                <input type="hidden" id="sendOrderProcess" value="new">
+                <div id="fields_group">
+<!--                    <div class="form__group">-->
+<!--                        <input required class="form__input" placeholder=" ">-->
+<!--                        <label class="form__label">Email</label>-->
+<!--                    </div>-->
+<!--                    <div class="form__group">-->
+<!--                        <select id="select_id" class="form__input" maxlength="2">-->
+<!--                            <option value="1">Да</option>-->
+<!--                            <option value="2">Нет</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="form__group">-->
+<!--                        <input required class="form__input" placeholder=" ">-->
+<!--                        <label class="form__label">Пароль</label>-->
+<!--                        <a href="#">Забыли пароль</a>-->
+<!--                    </div>-->
+                </div>
+                <button class="form__buttom" onclick="new ClientOrder().init()">Войти</button>
+
+
+<!--                <button class="form__buttom" onclick="reg()">Регистрация</button>-->
+<!--                <button class="form__buttom" onclick="new ClientOrder().init()" id="mainClicker">Вызвать техника</button>-->
+<!--                <button class="form__buttom" onclick="createUser()">createUser</button>-->
+            </div>
+        </div>
+    </div>
+    <!--/form -->
+
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/listeners.js"></script>
+<!-- code for your components -->
+<!--<script type="text/javascript" src="/app/login.js"></script>-->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<!-- Загрузим наш React-компонент. -->
+<script type="text/babel" src="/js/react_test.js"></script>
+</body>
+
+</html>
