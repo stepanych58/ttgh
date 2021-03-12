@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.stbegradleapp'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
@@ -30,9 +30,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jersey'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+	implementation 'junit:junit:4.12'
 	compile 'org.springframework.data:spring-data-rest-webmvc:3.4.2'
-
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	compile 'com.github.spring-social:spring-social-google:latest.integration'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
@@ -47,7 +48,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile 'org.webjars:bootstrap:4.5.3'
 //	compile group: 'org.webjars', name: 'bootstrap', version: '3.2.0'
-//	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {

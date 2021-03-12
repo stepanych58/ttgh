@@ -1,3 +1,19 @@
+Сделать личный кабинет пользователю
+ окно регистрации
+ login/logout
+ возможность редактировать профиль
+ возможность смотреть инфо о заказах
+
+
+сделать чаты
+/админа с пользователем, админа с инженером
+/сделать асайн заявок на инженера
+/у инженера должна быть возможность посмотреть заявки и поменять ей статус
+  /cбросить, взять в работу, отписать коментарий, написать в чат админу, пользователю
+
+
+
+
 -design Login page
 -adding users with spring security with password
 -design user lk page
@@ -5,7 +21,7 @@
 -design create order page
 -add handling exceptions
   if User already exis
-
+https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
 --не забыть про кейс смены номера пользователем,
 и подумать над кейсом когда у пользователя несколько номеров
 -- поиграть с аутентификацией через
@@ -73,3 +89,6 @@ drop table order_attribute;
         "role": "CLIENT"
     }
 }
+
+
+
