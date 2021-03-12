@@ -12,7 +12,7 @@
 //     Link,
 //     TextField
 // } = MaterialUI;
-
+var serverUrl = "http://localhost:8000";
 class HeaderItem extends React.Component {
     constructor(props) {
         super(props);
@@ -42,7 +42,7 @@ class PageHeader extends React.Component {
                     {/*    templates*/}
                     {/*</Link>*/}
                 </div>
-                <LoginControl></LoginControl>
+                <LoginControl key={'lctrl'}></LoginControl>
             </div>
         );
     }
@@ -282,6 +282,15 @@ class UploadFileInput extends React.Component {
             images = previewImages.map((item) => (<img key={item.f.name}
                                                        className="previewUploadedFile"
                                                        src={item.u}/>));
+            for (var i =0 ;i<previewImages.length;i++) {
+                var item = previewImages[i];
+                var data = new FormData();
+                console.log(item.f);
+                data.append('file', item.f)
+                axios.post("/uploadForm/", data).then(res => {
+                    console.log("File uploaded successfully.")
+                });
+            }
         }
         return (
             <div className="example-2">
@@ -394,6 +403,7 @@ class PageContent extends React.Component {
         }
         return res;
     }
+
     changeInputHandle(e, attr) {
         let attrMap = this.state.orderInfo;
         let parameterValue = this.getParameterValue(attr, e);
@@ -429,7 +439,7 @@ class PageContent extends React.Component {
         console.log('filesToUpload')
         console.log(filesToUpload)
         console.log(JSON.stringify(order))
-        var url = "http://localhost:8080/fixer/api/order/create";
+        var url = serverUrl + "/fixer/api/order/create";
         var options = {
             method: "POST",
             headers: {
@@ -532,24 +542,70 @@ class LoginControl extends React.Component {
         super(props);
         this.handleLoginClick = this.handleLoginClick.bind(this);
         this.handleLogoutClick = this.handleLogoutClick.bind(this);
-        this.state = {isLoggedIn: false};
+        this.login= this.login.bind(this);
+        this.logout= this.logout.bind(this);
+        this.componentDidMount= this.componentDidMount.bind(this);
+        this.state = {
+            isLoggedIn: false,
+            userName: ''
+        };
     }
 
     handleLoginClick() {
         this.setState({isLoggedIn: true});
+        this.login()
     }
 
     handleLogoutClick() {
         this.setState({isLoggedIn: false});
+        this.logout()
+    }
+
+    componentDidMount() {
+        // fetch the project name, once it retrieves resolve the promsie and update the state.
+        axios.get('/fixer/api/user/currentUser').then(
+            response => {
+                var user = response.data;
+                console.log(user);
+                if (user) {
+                    this.setState(
+                        {
+                            userName: user.name,
+                            isLoggedIn: true
+                        });
+
+                }
+            });
+    }
+
+
+
+    login() {
+        window.location.replace("/auth/login");
+        // axios.post('/auth/login').then(
+        //     response => {
+        //         console.log('/auth/login');
+        //     });
+    }
+
+    logout() {
+        window.location.replace("/auth/logout");
+        // axios.post('/auth/logout').then(
+        //     response => {
+        //         console.log('/auth/logout');
+        //     });
     }
 
     render() {
+        let userName = this.state.userName;
         const isLoggedIn = this.state.isLoggedIn;
         let handler = isLoggedIn ? this.handleLogoutClick : this.handleLoginClick;
         let buttonName = isLoggedIn ? 'Выйти' : 'Войти';
-        return (
-            <MainButton name={buttonName} handler={handler}/>
-        );
+
+        return (<div key={'btns'}>
+                <MainButton name={userName} key={'btn1'}/>
+                <MainButton name={buttonName} handler={handler} key={'btn2'}/>
+            </div>);
     }
 }
 

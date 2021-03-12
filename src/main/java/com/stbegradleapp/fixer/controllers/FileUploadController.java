@@ -3,6 +3,7 @@ package com.stbegradleapp.fixer.controllers;
 import com.stbegradleapp.fixer.storage.StorageFileNotFoundException;
 import com.stbegradleapp.fixer.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +16,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
-
+@CrossOrigin("*")
 @Controller
 public class FileUploadController {
 
+	@Autowired
+//	@Qualifier("storage")
 	private final StorageService storageService;
 
-	@Autowired
 	public FileUploadController(StorageService storageService) {
 		this.storageService = storageService;
 	}
+
 
 	@GetMapping("/uploadForm/")
 	public String listUploadedFiles(Model model) throws IOException {
@@ -51,8 +54,8 @@ public class FileUploadController {
 			RedirectAttributes redirectAttributes) {
 
 		storageService.store(file);
-		redirectAttributes.addFlashAttribute("message",
-				"You successfully uploaded " + file.getOriginalFilename() + "!");
+//		redirectAttributes.addFlashAttribute("message",
+//				"You successfully uploaded " + file.getOriginalFilename() + "!");
 
 		return "redirect:/";
 	}

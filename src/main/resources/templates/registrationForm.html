@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+</head>
+<body>
+<script>
+    // function check_pass() {
+    //     if (document.getElementById('pswd').value ==
+    //         document.getElementById('cpswd').value) {
+    //         document.getElementById('submit').disabled = false;
+    //     } else {
+    //         document.getElementById('submit').disabled = true;
+    //     }
+    // }
+</script>
+<form method="post" action="registr">
+    <p>Name:</p><input type="text" name="name"/>
+    <br/><p>Phone Number:</p><input type="text" name="phone"/>
+    <br/><p>Password:</p><input type="password" name="pswd" id="pswd"/>
+    <br/><p>Confirm Password:</p><input type="password" name="cpswd" id="cpswd" onchange="check_pass()"/>
+    <br/><input type="submit" id="submit" value="registration">
+</form>
+</body>
+</html>

@@ -6,7 +6,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
     ports:
-      - 8000:8080
+      - 8000:8000
     restart: always
     depends_on:
       - db

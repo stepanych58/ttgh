@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigInteger;
 
 @Repository
-public interface AttributeRepository extends CrudRepository<OrderAttribute, BigInteger> {
+public interface FixerAttributeRepository extends CrudRepository<OrderAttribute, BigInteger> {
     @Override
     void deleteById(BigInteger bigInteger);
 }

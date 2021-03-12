@@ -1,5 +1,6 @@
 package com.stbegradleapp.fixer.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -21,20 +22,34 @@ public class FixerUser {
     @Column(nullable = false, unique = true)
     protected String phoneNumber;
     //https://habr.com/ru/post/482552/
+
     @Column()
+    @JsonIgnore
     @Size(min=2, message = "Не меньше 5 знаков")
     private String password;
-    @Transient
-    private String passwordConfirm;
+
+    @Column
+    private String photo;
+//    @Transient
+//    @JsonIgnore
+//    private String passwordConfirm;
 
     @Column
     protected UserRole role;
-    @JsonIgnore
+
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", fetch = FetchType.LAZY)
     private List<ClientOrder> orders;
 
     public FixerUser(String name, String phoneNumber, UserRole role) {
         this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+    }
+
+    public FixerUser(String name, String pswd, String phoneNumber, UserRole role) {
+        this.name = name;
+        this.password = pswd;
         this.phoneNumber = phoneNumber;
         this.role = role;
     }

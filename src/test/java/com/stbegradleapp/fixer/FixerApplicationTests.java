@@ -10,8 +10,8 @@ import javax.transaction.Transactional;
 
 @SpringBootTest
 class FixerApplicationTests {
-	@Autowired
-	UserService userService;
+//	@Autowired
+//	UserService userService;
 
 	@Test
 	void contextLoads() {
@@ -20,7 +20,7 @@ class FixerApplicationTests {
 	@Test
 	@Transactional
 	public void testCreateUser(){
-		FixerUser user = userService.createUser();
-		System.out.println(user.toString());
+//		FixerUser user = userService.createUser();
+//		System.out.println(user.toString());
 	}
 }

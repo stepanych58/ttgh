@@ -27,7 +27,7 @@ public class ClientOrder {
     @ManyToOne(cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER, optional = false)
     private FixerUser client;
-    @JsonBackReference
+
     @ManyToOne(fetch = FetchType.LAZY)
     private FixerUser engineer;
 
@@ -71,11 +71,8 @@ public class ClientOrder {
         this.client = client;
     }
 
-    public void setParameters(List<OrderParameter> parameters) {
-        this.parameters = parameters;
-        for (OrderParameter parameter: parameters) {
-            parameter.setOrder(this);
-        }
+    public void setEngineer(FixerUser engineer) {
+        this.engineer = engineer;
     }
 
     @Override

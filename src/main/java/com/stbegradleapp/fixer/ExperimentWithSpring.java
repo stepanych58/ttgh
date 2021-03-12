@@ -8,7 +8,7 @@ public class ExperimentWithSpring {
     public static void main(String[] args) {
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(StbeAppConfig.class);
         UserService userService = ctxt.getBean(UserService.class);
-        FixerUser user = userService.createUser();
-        System.out.println(user);
+//        FixerUser user = userService.createUser();
+//        System.out.println(user);
     }
 }

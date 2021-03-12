@@ -229,6 +229,8 @@ class ClientOrder {
 }
 
 function isEqualAttrType(attribute, attrType) {
+    console.log("attr:" + JSON.stringify(attribute));
+    console.log("[TYPE] from attr :" + attribute.type + ", const attrType:" + attrType);
     return attribute.type == attrType;
 }
 

@@ -28,6 +28,7 @@ public class OrderAttribute {
     @JsonIgnore
     @OneToMany(mappedBy = "attribute", orphanRemoval = true)
     private List<OrderParameter> parameters;
+//    @JsonIgnore
     @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ListValue> listValues;
 

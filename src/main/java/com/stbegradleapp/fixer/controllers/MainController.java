@@ -2,20 +2,18 @@ package com.stbegradleapp.fixer.controllers;
 
 import com.stbegradleapp.fixer.FixerConstants;
 import com.stbegradleapp.fixer.model.ClientOrder;
-import com.stbegradleapp.fixer.model.params.OrderAttribute;
+import com.stbegradleapp.fixer.model.FixerUser;
+import com.stbegradleapp.fixer.model.UserRole;
 import com.stbegradleapp.fixer.model.params.OrderParameter;
-import com.stbegradleapp.fixer.repositories.AttributeRepository;
 import com.stbegradleapp.fixer.repositories.ClientOrderRepository;
-import com.stbegradleapp.fixer.repositories.OrderParameterRepository;
+import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import com.stbegradleapp.fixer.ui.UIParameterFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -25,34 +23,54 @@ import java.util.Map;
 public class MainController {
 
     @Autowired
-    AttributeRepository attributeRepository;
-    @Autowired
-    OrderParameterRepository parameterRepository;
-    @Autowired
     ClientOrderRepository clientOrderRepository;
+    @Autowired
+    FixerUserRepository fixerUserRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping(path = "/")
-    public String home(Model model)
+    public String home()
     {
-        model.addAttribute("title", "Home page");
-        model.addAttribute("name", "Stbe");
         return "website";
     }
 
-    @PostMapping(path = "/login")
-    public String login(Model model, @RequestParam Map<String,String> allParams)
+    @GetMapping(path = "/admin")
+    public String admin()
     {
-        System.out.println("allParams: " + allParams);
-        model.addAttribute("title", "Home page");
-        String userName = allParams.get("userName");
-        model.addAttribute("name", ( userName == null ? "Stbe": userName));
-        return "/lk/index";
+        return "admin";
     }
+
+    @GetMapping(path = "/reg")
+    public String reg()
+    {
+        return "registrationForm";
+    }
+
+    @GetMapping(path = "/out")
+    public String out()
+    {
+        return "success";
+    }
+
+    @PostMapping(value = "registr")
+    public String newUser(@RequestParam Map<String, String> req) {
+        String pswd = req.get("pswd");
+        System.out.println(pswd);
+        FixerUser user = new FixerUser(
+                req.get("name"),
+                passwordEncoder.encode(pswd),
+                req.get("phone"),
+                UserRole.CLIENT
+        );
+        fixerUserRepository.save(user);
+        return "redirect:/";
+    }
+    
     @PostMapping(path = "/order/")
     public String orderPage(Model model, @RequestParam Map<String,String> allParams)
     {
         String orderId = allParams.get(FixerConstants.ORDER_ID);
-        Iterable<OrderAttribute> attributes = attributeRepository.findAll();
         if (ObjectUtils.isEmpty(orderId)) {
             //create case
         } else {
@@ -67,11 +85,5 @@ public class MainController {
         model.addAttribute("title", "Home page");
         model.addAttribute("userName", "Stbe");
         return "order.html";
-    }
-
-
-    @PostMapping(path = "/createOrder")
-    public String createOrder(Model model, @RequestParam Map<String,String> allParams){
-        return "order";
     }
 }

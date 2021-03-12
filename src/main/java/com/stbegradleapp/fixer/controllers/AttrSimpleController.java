@@ -3,10 +3,9 @@ package com.stbegradleapp.fixer.controllers;
 import com.stbegradleapp.fixer.model.params.AttrType;
 import org.slf4j.Logger;
 import com.stbegradleapp.fixer.model.params.OrderAttribute;
-import com.stbegradleapp.fixer.repositories.AttributeRepository;
+import com.stbegradleapp.fixer.repositories.FixerAttributeRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ import java.util.Optional;
 @RequestMapping("/attrs")
 public class AttrSimpleController {
     @Autowired
-    AttributeRepository attributeRepository;
+    FixerAttributeRepository attributeRepository;
     private static final Logger logger = LoggerFactory.getLogger(AttrSimpleController.class);
     @GetMapping
     public String all(Model model) {
