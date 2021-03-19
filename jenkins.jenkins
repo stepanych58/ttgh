@@ -1,21 +1,35 @@
-#!groovy
-// Run docker build
-properties([disableConcurrentBuilds()])
-
 pipeline {
-    agent {
-        label 'master'
-        }
-    triggers { pollSCM('* * * * *') }
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-        timestamps()
+    agent any
+    tools {
+        gradle 'gradle'
+    }
+    environment {
+        IMAGE_BASE = 'stepanych58/tfixer'
+            IMAGE_TAG = "v$BUILD_NUMBER"
+            IMAGE_NAME = "${env.IMAGE_BASE}:${env.IMAGE_TAG}"
+            IMAGE_NAME_LATEST = "${env.IMAGE_BASE}:latest"
+            DOCKERFILE_NAME = "Dockerfile"
     }
     stages {
-        stage("create docker image") {
+        stage('gradle build') {
             steps {
-                echo " ============== start building image =================="
-                sh 'docker build -t stbejenkins1 . '
+                git branch: '**',
+                credentialsId: 'b4e40f60-4b84-49e1-b135-e2926a5d930c',
+                url: 'https://github.com/stepanych58/ttgh.git/'
+                sh 'gradle build -x test'
+            }
+        }
+        stage('try to push image') {
+            steps {
+                script {
+                    def dockerImage = docker.build("${env.IMAGE_NAME}", "-f ${env.DOCKERFILE_NAME} .")
+                        docker.withRegistry('', '25d73efe-15f7-4b67-a6f4-3f38652aff82') {
+                        dockerImage.push()
+                        dockerImage.push("latest")
+                    }
+                    echo "Pushed Docker Image: ${env.IMAGE_NAME}"
+                }
+                sh "docker rmi ${env.IMAGE_NAME} ${env.IMAGE_NAME_LATEST}"
             }
         }
     }
