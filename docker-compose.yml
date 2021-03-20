@@ -1,8 +1,10 @@
 version: "3"
 services:
   springapp:
-    build: .
-    container_name: springapp
+#    build: .
+    #    container_name: springapp
+    image: stepanych58/tfixer:v80
+    container_name: tfixer
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
     ports:
