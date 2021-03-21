@@ -46,6 +46,12 @@ public class UserService implements UserDetailsService {
         return Lists.newArrayList(userRepository.findAllByRole(UserRole.ENGINEER));
     }
 
+    public Iterable<FixerUser> findByRole(UserRole role) {
+        return userRepository.findAllByRole(role);
+    }
+
+
+
     public List<FixerUser> getAllUsers() {
         return Lists.newArrayList(userRepository.findAll());
     }

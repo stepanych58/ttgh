@@ -1,6 +1,5 @@
 package com.stbegradleapp.fixer.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.stbegradleapp.fixer.model.params.OrderParameter;
 import lombok.Getter;
@@ -18,6 +17,9 @@ public class ClientOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
 
+    @Column
+    private OrderStatus status;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order",
             fetch = FetchType.LAZY)
     private List<OrderParameter> parameters;
@@ -31,7 +33,7 @@ public class ClientOrder {
     @ManyToOne(fetch = FetchType.LAZY)
     private FixerUser engineer;
 
-    public ClientOrder(List<OrderParameter> parameters, FixerUser client, FixerUser engineer) {
+    public ClientOrder(List<OrderParameter> parameters, FixerUser client, FixerUser engineer, OrderStatus status) {
         this.parameters = parameters;
         //set for all parameters order_id
         for(OrderParameter parameter: this.parameters) {
@@ -39,12 +41,19 @@ public class ClientOrder {
         }
         this.client = client;
         this.engineer = engineer;
+        this.status = status;
     }
 
 
     public ClientOrder(FixerUser client, FixerUser engineer) {
         this.client = client;
         this.engineer = engineer;
+    }
+
+    public ClientOrder(FixerUser client, FixerUser engineer, OrderStatus status) {
+        this.client = client;
+        this.engineer = engineer;
+        this.status = status;
     }
 
     public ClientOrder() {
@@ -57,7 +66,6 @@ public class ClientOrder {
 
     public void addParameter(OrderParameter orderParameter, boolean set) {
         if (orderParameter != null) {
-            System.out.println("getParameters(): " + getParameters());
             if(!getParameters().contains(orderParameter)) {
                 getParameters().add(orderParameter);
             }

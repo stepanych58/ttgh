@@ -1,11 +1,16 @@
 package com.stbegradleapp.fixer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stbegradleapp.fixer.controllers.rest.AttributeRepository;
 import com.stbegradleapp.fixer.controllers.rest.OrderRestController;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.UserRole;
-import com.stbegradleapp.fixer.repositories.ClientOrderRepository;
+import com.stbegradleapp.fixer.repositories.OrderRepository;
+import com.stbegradleapp.fixer.repositories.FixerUserRepository;
+import com.stbegradleapp.fixer.repositories.OrderParameterRepository;
+import com.stbegradleapp.fixer.servises.UserService;
+import com.stbegradleapp.fixer.storage.StorageService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +30,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(OrderRestController.class)
 public class OrderServiceTest {
-    @MockBean
-    private ClientOrderRepository orderRepository;
 
+    @Autowired
+    @MockBean
+    private OrderRepository orderRepository;
+    @MockBean
+    UserService userService;
+    @MockBean
+    FixerUserRepository userRepository;
+    @MockBean
+    AttributeRepository attributeRepository;
+    @MockBean
+    OrderParameterRepository orderParameterRepository;
+    @MockBean
+    StorageService storageService;
     @Autowired
     private MockMvc mockMvc;
 

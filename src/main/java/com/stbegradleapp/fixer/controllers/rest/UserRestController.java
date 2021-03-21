@@ -2,6 +2,7 @@ package com.stbegradleapp.fixer.controllers.rest;
 
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
+import com.stbegradleapp.fixer.model.UserRole;
 import com.stbegradleapp.fixer.servises.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,7 +19,7 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(path = "create", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public FixerUser create(@RequestBody FixerUser user) {
         validate(user);
         return user;
@@ -29,7 +30,13 @@ public class UserRestController {
         return userService.getAllUsers();
     }
 
-    @GetMapping(path = "engeeners")
+    @GetMapping(path = "/role/{role}")
+    public Iterable<FixerUser> findByRole(@PathVariable("role") String role) {
+        UserRole userRole = UserRole.valueOf(role);
+        return userService.findByRole(userRole);
+    }
+
+    @GetMapping(path = "/engeeners")
     public List<FixerUser> engeeners() {
         Iterable<FixerUser> all = userService.getAllEngeeners();
         System.out.println("all: " + all);

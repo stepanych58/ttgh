@@ -38,88 +38,30 @@ class PageHeader extends React.Component {
 class OrdersTable extends React.Component {
     render() {
         return (
-            <div>
-                <a href={'stbe'}> orders table link</a>
-                <a href={'stbe'}> orders table link1</a>
-                <a href={'stbe'}> orders table link2</a>
+            <div className={"midletable"}>
+                <p>Orders table</p>
+                <table border={2}>
+                    <tr>
+                        <th>Name</th>
+                        <th>Master</th>
+                        <th>Rate</th>
+                        <th>Count of orders</th>
+                    </tr>
+                </table>
             </div>
         );
     }
-    // render() {
-    //     return (
-    //         <div>
-    //             <p>Orders table</p>
-    //             {/*<table border={2}>*/}
-    //             {/*    <tr>*/}
-    //             {/*        <th>Name</th>*/}
-    //             {/*        <th>Phone Number</th>*/}
-    //             {/*        <th>What broke</th>*/}
-    //             {/*    </tr>*/}
-    //             {/*</table>*/}
-    //             <table cellSpacing="0">
-    //                 <tr>
-    //                     <th>Picture</th>
-    //                     <th>Name</th>
-    //                     <th>Email</th>
-    //                     <th>Phone</th>
-    //                     <th width="230">Comments</th>
-    //                 </tr>
-    //
-    //                 <tr>
-    //                     <td><img
-    //                         src="https://habrastorage.org/getpro/moikrug/uploads/education_platform/000/000/037/logo/medium_3869053716ff0b787b38590f7ae5ed62.jpg"
-    //                         alt=""/></td>
-    //                     <td>Jane Doe</td>
-    //                     <td>jane.doe@foo.com</td>
-    //                     <td>01 800 2000</td>
-    //                     <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-    //                 </tr>
-    //
-    //                 <tr>
-    //                     <td><img
-    //                         src="https://habrastorage.org/getpro/moikrug/uploads/education_platform/000/000/037/logo/medium_3869053716ff0b787b38590f7ae5ed62.jpg"
-    //                         alt=""/></td>
-    //                     <td>John Doe</td>
-    //                     <td>john.doe@foo.com</td>
-    //                     <td>01 800 2000</td>
-    //                     <td>Blanditiis, aliquid numquam iure voluptatibus ut maiores explicabo ducimus neque, nesciunt
-    //                         rerum perferendis, inventore.
-    //                     </td>
-    //                 </tr>
-    //
-    //                 <tr>
-    //                     <td><img src="https://i.picsum.photos/id/64/100/100.jpg" alt=""/></td>
-    //                     <td>Jane Smith</td>
-    //                     <td>jane.smith@foo.com</td>
-    //                     <td>01 800 2000</td>
-    //                     <td> Culpa praesentium unde pariatur fugit eos recusandae voluptas.</td>
-    //                 </tr>
-    //
-    //                 <tr>
-    //                     <td><img src="https://i.picsum.photos/id/1025/100/100.jpg" alt=""/></td>
-    //                     <td>John Smith</td>
-    //                     <td>john.smith@foo.com</td>
-    //                     <td>01 800 2000</td>
-    //                     <td>Aut voluptatum accusantium, eveniet, sapiente quaerat adipisci consequatur maxime temporibus
-    //                         quas, dolorem impedit.
-    //                     </td>
-    //                 </tr>
-    //             </table>
-    //
-    //         </div>
-    //     );
-    // }
 }
 
 class EngineersTable extends React.Component {
     render() {
         return (
             <div className={"midletable"}>
-                <p>Engeeners table</p>
                 <table border={2}>
                     <tr>
                         <th>Name</th>
                         <th>Master</th>
+                        <th>Rate</th>
                         <th>Count of orders</th>
                     </tr>
                 </table>

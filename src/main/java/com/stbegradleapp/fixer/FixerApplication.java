@@ -3,14 +3,15 @@ package com.stbegradleapp.fixer;
 import com.stbegradleapp.fixer.controllers.rest.AttributeRepository;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
+import com.stbegradleapp.fixer.model.OrderStatus;
 import com.stbegradleapp.fixer.model.UserRole;
 import com.stbegradleapp.fixer.model.params.AttrType;
 import com.stbegradleapp.fixer.model.params.ListValue;
 import com.stbegradleapp.fixer.model.params.OrderAttribute;
 import com.stbegradleapp.fixer.model.params.OrderParameter;
-import com.stbegradleapp.fixer.repositories.ClientOrderRepository;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import com.stbegradleapp.fixer.repositories.OrderParameterRepository;
+import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,7 +32,7 @@ public class FixerApplication {
     public CommandLineRunner testApp(FixerUserRepository userRepository,
                                      AttributeRepository attributeRepository,
                                      OrderParameterRepository parameterRepository,
-                                     ClientOrderRepository clientOrderRepository,
+                                     OrderRepository clientOrderRepository,
                                      StorageService storageService
     ) {
         return args -> {
@@ -69,7 +70,8 @@ public class FixerApplication {
             ClientOrder svetlanaOrder = new ClientOrder(
                     List.of(dateParam, descriptionParam, photoParam, eqParam),
                     sveta,
-                    genadii);
+                    genadii,
+                    OrderStatus.OPEN);
 
             attributeRepository.saveAll(listAttrsThatShouldBeInSystem);
             clientOrderRepository.save(svetlanaOrder);

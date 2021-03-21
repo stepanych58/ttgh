@@ -5,7 +5,7 @@ import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.UserRole;
 import com.stbegradleapp.fixer.model.params.OrderParameter;
-import com.stbegradleapp.fixer.repositories.ClientOrderRepository;
+import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import com.stbegradleapp.fixer.ui.UIParameterFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class MainController {
 
     @Autowired
-    ClientOrderRepository clientOrderRepository;
+    OrderRepository orderRepository;
     @Autowired
     FixerUserRepository fixerUserRepository;
     @Autowired
@@ -74,7 +74,7 @@ public class MainController {
         if (ObjectUtils.isEmpty(orderId)) {
             //create case
         } else {
-            ClientOrder order = clientOrderRepository.findById(new BigInteger(orderId)).get();
+            ClientOrder order = orderRepository.findById(new BigInteger(orderId)).get();
             List<OrderParameter> parameters = order.getParameters();
             UIParameterFactory uiParameterFactory = new UIParameterFactory();
             List<String> htmlRows = uiParameterFactory.convertToRows(parameters);
