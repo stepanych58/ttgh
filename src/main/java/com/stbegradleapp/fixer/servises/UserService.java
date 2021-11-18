@@ -3,6 +3,7 @@ package com.stbegradleapp.fixer.servises;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.UserRole;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
+import lombok.SneakyThrows;
 import org.glassfish.jersey.internal.guava.Lists;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -26,13 +28,22 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-        final FixerUser fixerUser = userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() ->
+        final FixerUser fixerUser = findByPhoneNumber(phoneNumber).orElseThrow(() ->
                 new UsernameNotFoundException(
                         MessageFormatter.format(messages.getMessage("JdbcDaoImpl.notFound"), phoneNumber).getMessage()));
         return getUserDetails(fixerUser);
     }
 
-    private UserDetails getUserDetails(FixerUser fixerUser) {
+
+    public Optional<FixerUser> findByPhoneNumber(String phoneNumber) {
+        return userRepository.findByPhoneNumber(phoneNumber);
+    }
+
+    public FixerUser save(FixerUser user) {
+        return userRepository.save(user);
+    }
+
+    public UserDetails getUserDetails(FixerUser fixerUser) {
         final UserDetails result = User.builder()
                 .username(fixerUser.getId().toString())
                 .password(fixerUser.getPassword())
@@ -50,14 +61,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findAllByRole(role);
     }
 
-
-
     public List<FixerUser> getAllUsers() {
         return Lists.newArrayList(userRepository.findAll());
     }
 
     public FixerUser getUserById(String userId) {
-
         BigInteger bigInteger = new BigInteger(userId);
         FixerUser user = userRepository.findById(bigInteger).orElseThrow(
                 () ->

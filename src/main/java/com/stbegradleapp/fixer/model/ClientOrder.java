@@ -1,5 +1,6 @@
 package com.stbegradleapp.fixer.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.stbegradleapp.fixer.model.params.OrderParameter;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @JsonSerialize
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClientOrder {
 
     @Id
@@ -20,8 +22,13 @@ public class ClientOrder {
     @Column
     private OrderStatus status;
 
+
+    public void setParameters(List<OrderParameter> parameters) {
+        this.parameters = parameters;
+    }
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order",
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private List<OrderParameter> parameters;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", fetch = FetchType.LAZY)
 //    private List<BillingItem> billingItems;

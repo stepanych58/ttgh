@@ -1,6 +1,7 @@
 package com.stbegradleapp.fixer.model.params;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import java.math.BigInteger;
 @Setter
 @Getter
 @JsonSerialize
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderParameter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,8 +26,9 @@ public class OrderParameter {
 
     @Column(length = 1000)
     private String value;
+
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private ClientOrder order;
 

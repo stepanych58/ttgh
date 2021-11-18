@@ -73,5 +73,10 @@ public class OrderRestController {
         return order;
     }
 
+    @DeleteMapping(path = "/delete/{orderId}")
+    public void deleteOrder(@PathVariable("orderId") BigInteger orderId) {
+        orderRepository.deleteById(orderId);
+    }
+
 
 }

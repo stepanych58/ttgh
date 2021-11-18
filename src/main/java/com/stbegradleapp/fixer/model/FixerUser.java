@@ -2,6 +2,7 @@ package com.stbegradleapp.fixer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FixerUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -16,7 +16,7 @@ public class AttrRestController {
     @Autowired
     AttributeRepository attributeRepository;
 
-    @RequestMapping /*(method = RequestMethod.GET, headers=MediaType.ALL_VALUE)*/
+    @RequestMapping
     public Iterable<OrderAttribute> showAll(){
         Iterable all = attributeRepository.findAll();
         System.out.println(all);

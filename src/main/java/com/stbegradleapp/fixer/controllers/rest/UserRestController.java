@@ -2,7 +2,9 @@ package com.stbegradleapp.fixer.controllers.rest;
 
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
+import com.stbegradleapp.fixer.model.OrderStatus;
 import com.stbegradleapp.fixer.model.UserRole;
+import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.servises.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +20,8 @@ import java.util.stream.Stream;
 public class UserRestController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderRepository orderRepository;
 
     @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public FixerUser create(@RequestBody FixerUser user) {
@@ -69,6 +73,28 @@ public class UserRestController {
 
     private void validate(FixerUser user) {
         System.out.println("validate start fixer user: " + user);
+    }
+
+    @GetMapping("/{userId}/orders")
+    public Iterable<ClientOrder> getOrders(@PathVariable("userId") String userId){
+        Iterable<ClientOrder> allByClientId = orderRepository.findAllByClientId(new BigInteger(userId));
+        return allByClientId;
+    }
+
+    @PostMapping("/{userId}")
+    public ClientOrder saveOrUpdateOrder(@PathVariable("userId") String userId,
+                                         @RequestBody ClientOrder order){
+
+        return orderRepository.save(new ClientOrder(order.getParameters(),
+                userService.getUserById(userId),
+                null,
+                OrderStatus.OPEN));
+    }
+
+    @PatchMapping("/{userId}")
+    public ClientOrder updateOrder(@PathVariable("userId") String userId,
+                                         @RequestBody ClientOrder order){
+        return orderRepository.save(order);
     }
 
 }

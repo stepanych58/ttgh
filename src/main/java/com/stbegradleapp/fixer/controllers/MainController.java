@@ -7,7 +7,6 @@ import com.stbegradleapp.fixer.model.UserRole;
 import com.stbegradleapp.fixer.model.params.OrderParameter;
 import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
-import com.stbegradleapp.fixer.ui.UIParameterFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -74,11 +73,6 @@ public class MainController {
         if (ObjectUtils.isEmpty(orderId)) {
             //create case
         } else {
-            ClientOrder order = orderRepository.findById(new BigInteger(orderId)).get();
-            List<OrderParameter> parameters = order.getParameters();
-            UIParameterFactory uiParameterFactory = new UIParameterFactory();
-            List<String> htmlRows = uiParameterFactory.convertToRows(parameters);
-
             //show/edit case
         }
 
