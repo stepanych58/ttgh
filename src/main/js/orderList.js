@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -94,7 +93,6 @@ const OrderList = (props) => {
     console.log('JSON.stringify(emploees)')
     console.log(JSON.stringify(emploees))
     return <div>
-        {/*<button onClick={createOrder}>Create Order</button>*/}
         <br/>
         Page number:<input/>
         <br/>
@@ -216,7 +214,7 @@ const EditOrderDialog = (props) => {
         // orderParam
         console.log("handleChangeInput")
         for (let param of parameterValues) {
-            if (param.attribute.id == e.target.id) {
+            if (param.attribute.id+ "_" + order.id == e.target.id) {
                 param.value = e.target.value
                 //return
             }
@@ -225,6 +223,7 @@ const EditOrderDialog = (props) => {
     }
 
     function handleClick() {
+        order.parameters = parameterValues
         updateFunc(order.client.id, order);
     }
 

@@ -23,6 +23,16 @@ public class ClientOrder {
     private OrderStatus status;
 
 
+    @PrePersist
+    public void onPrePersist() {
+        setOrderForParams();
+    }
+
+    @PreUpdate
+    public void onPreUpdate() {
+        setOrderForParams();
+    }
+
     public void setParameters(List<OrderParameter> parameters) {
         this.parameters = parameters;
     }
@@ -42,10 +52,6 @@ public class ClientOrder {
 
     public ClientOrder(List<OrderParameter> parameters, FixerUser client, FixerUser engineer, OrderStatus status) {
         this.parameters = parameters;
-        //set for all parameters order_id
-        for(OrderParameter parameter: this.parameters) {
-            parameter.setOrder(this);
-        }
         this.client = client;
         this.engineer = engineer;
         this.status = status;
@@ -67,18 +73,9 @@ public class ClientOrder {
 
     }
 
-    public void addParameter(OrderParameter orderParameter) {
-        addParameter(orderParameter, true);
-    }
-
-    public void addParameter(OrderParameter orderParameter, boolean set) {
-        if (orderParameter != null) {
-            if(!getParameters().contains(orderParameter)) {
-                getParameters().add(orderParameter);
-            }
-            if (set) {
-                orderParameter.setOrder(this, false);
-            }
+    public void setOrderForParams() {
+        for(OrderParameter parameter: this.parameters) {
+            parameter.setOrder(this);
         }
     }
 

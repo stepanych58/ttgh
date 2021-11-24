@@ -49,16 +49,8 @@ public class OrderParameter {
     }
 
     public void setOrder(ClientOrder clientOrder) {
-        setOrder(clientOrder, true);
-    }
-
-    public void setOrder(ClientOrder clientOrder, boolean add) {
         this.order = clientOrder;
-        if (clientOrder != null && add) {
-            clientOrder.addParameter(this, false);
-        }
     }
-
 
     @Override
     public String toString() {

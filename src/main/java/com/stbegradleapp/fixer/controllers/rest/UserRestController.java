@@ -94,6 +94,7 @@ public class UserRestController {
     @PatchMapping("/{userId}")
     public ClientOrder updateOrder(@PathVariable("userId") String userId,
                                          @RequestBody ClientOrder order){
+        order.setOrderForParams();
         return orderRepository.save(order);
     }
 
