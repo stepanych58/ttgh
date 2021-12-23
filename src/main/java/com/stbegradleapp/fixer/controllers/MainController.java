@@ -1,22 +1,19 @@
 package com.stbegradleapp.fixer.controllers;
 
-import com.stbegradleapp.fixer.FixerConstants;
-import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.UserRole;
-import com.stbegradleapp.fixer.model.params.OrderParameter;
-import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
+import com.stbegradleapp.fixer.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.math.BigInteger;
-import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class MainController {
@@ -28,10 +25,9 @@ public class MainController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @GetMapping(path = "/")
-    public String home()
-    {
-        return "website";
+    @RequestMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/**/{y:[\\w\\-]+}" })
+    public String getIndex(HttpServletRequest request) {
+        return "/website";
     }
 
     @GetMapping(path = "/admin")
@@ -65,19 +61,5 @@ public class MainController {
         fixerUserRepository.save(user);
         return "redirect:/";
     }
-    
-    @PostMapping(path = "/order/")
-    public String orderPage(Model model, @RequestParam Map<String,String> allParams)
-    {
-        String orderId = allParams.get(FixerConstants.ORDER_ID);
-        if (ObjectUtils.isEmpty(orderId)) {
-            //create case
-        } else {
-            //show/edit case
-        }
 
-        model.addAttribute("title", "Home page");
-        model.addAttribute("userName", "Stbe");
-        return "order.html";
-    }
 }

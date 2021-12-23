@@ -1,7 +1,7 @@
 package com.stbegradleapp.fixer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stbegradleapp.fixer.controllers.rest.AttributeRepository;
+import com.stbegradleapp.fixer.repositories.AttributeRepository;
 import com.stbegradleapp.fixer.controllers.rest.OrderRestController;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;

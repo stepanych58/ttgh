@@ -1,4 +1,4 @@
-package com.stbegradleapp.fixer.controllers.rest;
+package com.stbegradleapp.fixer.repositories;
 
 import com.stbegradleapp.fixer.model.params.OrderAttribute;
 import org.springframework.data.repository.CrudRepository;

@@ -1,5 +1,6 @@
 package com.stbegradleapp.fixer.config;
 
+import com.stbegradleapp.fixer.model.UserRole;
 import com.stbegradleapp.fixer.servises.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,22 +18,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
-@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableAutoConfiguration
-public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserService userService;
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-//                .antMatchers("/").permitAll()
+                .antMatchers("/app/admin/**").authenticated()//.hasRole(UserRole.ADMIN.toString())
                 .antMatchers("/").permitAll()
+
+//                .antMatchers("/profile/")
 //                .anyRequest()
 //                .authenticated()
                 .and()
@@ -64,28 +63,13 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     protected DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userService);
+        daoAuthenticationProvider.setUserDetailsService(getUserService());
         return daoAuthenticationProvider;
     }
 
-//    @Autowired
-//    public void configureGlobal(
-//            AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser(User.withDefaultPasswordEncoder().username("user").password("password").roles("USER"));
-//    }
-//
-//    @Bean
-//    @Override
-//    protected UserDetailsService userDetailsService() {
-//        UserDetailsService res = new InMemoryUserDetailsManager(
-//                User.builder()
-//                .username("stbe")
-//                .password("stbe")
-//                .roles("USER")
-//                .build()
-//        );
-//        return super.userDetailsService();
-//    }
+
+    @Bean
+    protected UserService getUserService(){
+        return new UserService();
+    }
 }

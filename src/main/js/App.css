@@ -1,0 +1,614 @@
+CSS
+/* Box sizing rules */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+/*body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}*/
+
+/* Set core body defaults */
+/*body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}*/
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+ animation-duration: 0.01ms !important;
+ animation-iteration-count: 1 !important;
+ transition-duration: 0.01ms !important;
+ scroll-behavior: auto !important;
+  }
+}
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+ 
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+ 
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd, 
+a {
+  margin: 0px;
+}
+ 
+/* Set core body defaults */
+/*body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}*/
+ 
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+ 
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+ 
+/* Make images easier to work with */
+/*img {
+  max-width: 100%;
+  display: block;
+}*/
+ 
+/* Natural flow and rhythm in articles by default */
+/*article > * + * {
+  margin-top: 1em;
+}*/
+ 
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+ 
+/* Remove all animations and transitions for people that prefer not to see them */
+/*@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+@media{
+	.wrapper{width: 320px;}
+} */
+
+
+
+
+.wrapper{
+	height: auto;
+}
+
+.wrapper__content{	
+	/* width: 320px;
+	margin: 0; */
+
+}
+/* .header__container{
+  width: 100%;
+  height: 8px;
+  background: #28AAA7;
+  position: absolute;
+} */
+
+
+
+/*.header__logo{
+	width: 100%;
+
+}*/
+.bl__logo{
+	display: flex;
+	margin-top: 18px;
+    margin-left: 10px;
+}
+.tv__one{
+	border-radius: 15px;
+	width: 130px;
+	height: 30px;
+	background-color: #46D29B;
+}
+.tv__two{
+	position: absolute;
+	left: 79px;
+    border-radius: 15px;
+	width: 79px;
+	height: 30px;
+	background-color: #28AAA7;
+}
+.tv__one p{
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: bolder;
+	color: #fff;
+	padding: 7px 21px;
+}
+.tv__two p{
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: bolder;
+	color: #fff;
+  padding: 7px 12px;
+}
+img{
+	width: 175px;
+    height: 125px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.zgl__login{
+  margin-top: 0px;
+  margin-bottom: 34px;
+  font-size: 24px;
+	font-family: 'Nunito Sans', sans-serif;
+	text-align: center;
+	font-weight: 100;
+}
+.bl__registr p{
+	margin: -8px 0px 35px 0px;
+    text-align: center;
+    color: #959595;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+.input__regstr input{
+  margin: 0px 0px 10px 0px;
+  border-radius: 10px;
+  width: 300px;
+  height: 40px;
+  border: 1px solid #e1e1e1;
+  background: #ffffff;
+  padding: 0px 0px 3px 20px;
+  /* background: url(); */
+  box-shadow: 0px 4px 22px -10px rgb(0 0 3 / 58%);
+}
+.icons__style-one{
+	color: #C4C4C4;
+    position: absolute;
+    top: 287px;
+    left: 16px;
+}
+.icons__style-two{
+    color: #C4C4C4;
+    position: absolute;
+    top: 337px;
+    left: 16px;
+
+}
+a{
+	text-decoration: none;
+	color: #C4C4C4;      /*<<<<<<<<<<<<<<<<<<<<<<<<<<<Исправить!!!!!!!!!!*/
+	/* position: relative;
+	left: 200px; */
+}
+
+
+
+.cont__bl-reg p{
+     text-align: center;
+     color: #959595;
+}
+.cont__bl-reg span{
+     color: #577CFF;
+ }
+.display__input{
+   display: flex;
+   justify-content: center;
+}
+.src__password{
+  position: relative;
+    right: 115px;
+    display: flex;
+    justify-content: center;
+}
+
+/*===========стили div в cards Registration.jsx=============*/
+.zgl__login--card--reg{
+  margin-top: 34px;
+  margin-bottom: 11px;
+  font-size: 24px;
+  font-family: 'Nunito Sans', sans-serif;
+  text-align: center;
+  font-weight: 100;
+}
+
+.cont__bl--card--reg{
+  margin-bottom: 43px;
+    text-align: center;
+    color: #959595;
+}
+.cont__bl--card--reg p{
+  text-align: center;
+  color: #959595;
+}
+.cont__bl--card--reg span{
+  color: #577CFF;
+}
+/*===========стили div в cards Registration.jsx=============*/
+/*Стили компонента Button*/
+.btn__burger{
+	width: 60px;
+  margin: 0 auto;
+}
+.btn__burger {
+  width: 100%;
+  margin-top: 32px;
+  margin-bottom: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* button */
+.btn__burger  {
+  padding: 5px;
+  width: 116px;
+  height: 35px;
+  border-radius: 8px;
+  border: 0px solid;
+  background: #FFED50;
+    -webkit-box-shadow: 0px 4px 22px -12px rgba(0, 0, 0, 0.3);
+   -moz-box-shadow: 0px 4px 22px -12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 22px -12px rgba(0, 0, 0, 0.3);
+}
+.button--outline{
+  width: 116px;
+  height: 35px;
+  border-radius: 8px;
+  border: 0px solid;
+  background: #a9a8ff;
+    -webkit-box-shadow: 0px 4px 22px -12px rgba(0, 0, 0, 0.3);
+   -moz-box-shadow: 0px 4px 22px -12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 22px -12px rgba(0, 0, 0, 0.3);
+}
+
+
+/*Стили компонента Button*/
+
+/*===========стили div в cards Repair.jsx=============*/
+/* .content__repair{
+  height: 600px;
+} */
+.repair__page-img  {
+  width: 183px;
+  height: 186px;
+}
+
+
+.input__time-date input{
+  margin: 2px 10px 10px 10px;
+  border-radius: 10px;
+  width: 140px;
+  height: 40px;
+  border: 1px solid #e1e1e1;
+  background: #ffffff;
+  padding: 0px 0px 3px 20px;
+  /* background: url(); */
+  box-shadow: 0px 4px 22px -10px rgb(0 0 3 / 58%);
+}
+.input__time-date {
+  display: flex;
+  justify-content: center;
+}
+.block__time-date{
+  display: flex;
+  justify-content: center;
+}   
+textarea{
+    border: 0px solid;
+    padding: 10px;
+    width: 94%;
+    font-size: 20px;
+    height: 95px;
+    background: #BFECB7;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: block;
+    -webkit-box-shadow: 4px 4px 8px 0px rgb(34 60 80 / 20%);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgb(34 60 80 / 20%);
+
+}
+/*===========стили div в cards Repair.jsx=============*/
+
+
+
+
+/*===========стили div в cards Settings.jsx=============*/ /*объеденил стили двух компонентов в одном*/
+/*===========стили div в cards СardOrder.jsx=============*/
+.order__content-telefon{
+  display: flex;
+  justify-content: space-between; 
+  width: 100%;
+  height: 50px;
+  background: #EAEAEA;
+  margin-top: 18px;
+  margin-bottom: 10px;
+  padding: 14px;
+}
+.order__content{
+  display: flex;
+  justify-content: space-between; 
+  width: 100%;
+  height: auto;
+  background: #EAEAEA;
+  margin-top: 1px;
+  /* margin-bottom: 10px; */
+  padding: 19px 7px 19px 9px;
+}
+.status__order{
+  width: 103px;
+  font-size: 10px;
+  margin: auto;
+  color: #979797;
+  text-align: center;
+}
+.bl_heitgh--crOrder{
+  height: 100px;
+}
+/*===========стили div в cards Settings.jsx=============*/ /*объеденил стили двух компонентов в одном*/
+.title__contacts{
+  margin: 0px 0px 7px 10px;
+  font-family: sans-serif;
+  color: #525252;
+  font-size: 14px;
+}
+.title__menu{
+  font-size: 12px;
+  color: #525252;
+  font-family: sans-serif;
+}
+.title__text{
+  font-family: sans-serif;
+  font-size: 16px;
+}
+.svg__content{
+  margin: 6px 10px 0px 0px;
+}
+.container__fasource{
+  display: flex;
+}
+.forward{
+  position: relative;
+  top: 8px;
+}
+.forward__lastname{
+  position: relative;
+  top: 3px;
+}
+
+/*===========стили div в cards Settings.jsx=============*/ /*объеденил стили двух компонентов в одном*/
+/*===========стили div в cards СardOrder.jsx=============*/
+
+
+
+
+
+
+
+/*===========стили div в cards CardDescription.jsx=============*/
+.content__discription-order{
+  width: 100%;
+  background: azure;
+  height: 456px;
+  margin-top: 64px;
+}
+.content-p{
+  padding-top: 60px;
+  padding-left: 20px;
+}
+.content-p p{
+  margin-bottom: 30px;
+}
+.breakdowns{
+  padding-left: 20px;
+}
+/*===========стили div в cards CardDescription.jsx=============*/
+
+
+/*===========компонент ButtonBack.jsx=============*/
+.button__back-flex button{
+  position: relative;
+  left: 13px;
+  top: 60px;
+}
+
+
+.button__back svg{ 
+position: relative;
+top: 6px;
+left: 6px;
+}
+.button__back{
+  position: relative;
+  top: 63px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  background: #d3d3d3;
+  -webkit-box-shadow: 0px 0px 15px 1px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 0px 15px 1px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 0px 15px 1px rgba(34, 60, 80, 0.2);
+  
+  /* border: 1px solid; */
+}
+
+/*===========компонент ButtonBack.jsx=============*/
+
+
+/*===========компонент BTN-Burger.jsx=============*/
+.center {
+  top: 34px;
+  left: 88%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 20px;
+}
+
+.center:before,
+.center:after,
+.center div {
+  background: black;
+  content: "";
+  display: block;
+  height: 2px;
+  border-radius: 3px;
+  margin: 5px 0;
+  transition: 0.5s;
+}
+.center:hover:before {
+  transform: translateY(7px) rotate(135deg);
+}
+.center:hover:after {
+  transform: translateY(-7px) rotate(-135deg);
+}
+.center:hover div {
+  transform: scale(0);
+}
+/*===========компонент BTN-Burger.jsx=============*/
+
+
+
+
+/*===========компонент NavigationBottom.jsx=============*/
+.conteiner__navigation{
+  position:fixed;
+  left:0;
+  bottom:0px;
+  overflow:scroll;
+  width: 100%;
+  height: 50px;
+  background-color: #054B47;
+  border-radius: 10px 10px 0px 0px;
+
+}
+.block__navigation::after{
+  color: #FFFA8E;
+}
+.conteiner__navigation__block{
+  display: flex;
+}
+.block__navigation{
+  padding: 2px 14px 2px 14px;
+  text-align: center;
+}
+.block__navigation svg{
+  position: relative;
+  top: 9px;
+  color: #fff;
+}
+/* .block__navigation p{
+  color: #fff;
+  font-size: 10px;
+  padding-top: 2px;
+} */
+.block__navigation a{
+  color: #fff;
+  font-size: 10px;
+  padding-top: 2px;
+  
+}
+.block__navigation svg:active{
+  color: #FFFA8E;
+}
+
+/*===========компонент NavigationBottom.jsx=============*/

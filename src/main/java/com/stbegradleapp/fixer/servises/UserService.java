@@ -24,6 +24,7 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     FixerUserRepository userRepository;
+
     MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
     @Override

@@ -1,6 +1,6 @@
 package com.stbegradleapp.fixer;
 
-import com.stbegradleapp.fixer.controllers.rest.AttributeRepository;
+import com.stbegradleapp.fixer.repositories.AttributeRepository;
 import com.stbegradleapp.fixer.controllers.rest.UserRestController;
 import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;

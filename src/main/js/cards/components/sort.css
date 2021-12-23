@@ -1,0 +1,115 @@
+.sortpopup__wrapper{
+    height: 140px;
+    width: 250px;
+    background: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    /* margin: auto; */
+    margin-top: 10;
+    top: 54%;
+    left: 13%;
+
+    box-shadow: 0px 4px 15px -8px rgb(0 0 3 / 50%);
+z-index: 1;
+}
+.sortpopup__block{
+    display: flex;
+    justify-content: center;
+}
+li .active{ 
+    background: yellowgreen;
+    width: 173px;
+    height: 33px;
+    border-radius: 10px;
+}
+.sort__span{
+    height: 42px;
+    width: 302px;
+    border-radius: 15px;
+    padding: 8px 0px 0px 16px;
+    /* background: aquamarine; */
+    margin-bottom: 9px;
+
+
+    border: 1px solid #e1e1e1;
+  background: #ffffff;
+  /* padding: 0px 0px 3px 20px; */
+  /* background: url(); */
+  box-shadow: 0px 4px 22px -10px rgb(0 0 3 / 58%);
+}
+li{
+    list-style-type: none;
+    padding: 3px 0px 3px 0px;
+    text-align: center;
+}
+/* .menu{
+    background-color: rgb(15 37 53 / 88%);
+    position: fixed;
+}
+.menu.active{
+    transform: translateY(0);
+}
+.menu{
+    background-color: #120e01e6;
+    position: fixed;
+    width: 96%;
+    height:  88vh;
+    top: 60px;
+    border-radius: 30px;
+    right: 7px;
+    transform: translateY(-110%);
+    transition: all 0.4s;
+    transition: 0.3s;
+}
+.menu.active{
+    transform: translateY(0);
+    transition: 0.3s;
+} */
+/*----------------------QuestionBlock-----------------------*/
+.question__block{
+    /* position: absolute; */
+    /* top: 367px;
+    left: 124px; */
+}
+.question__block svg{
+    color: darkgrey;
+}
+/* .icon__svg svg{
+    position: relative;
+    right: 31px;
+    top: 11px;
+ } */
+.icon__svg{
+    position: absolute;
+    top: 369px;
+    left: 280px;
+}
+.icon__svg--outline{
+    position: absolute;
+    top: 369px;
+    left: 124px;
+}
+
+
+.sortpopup__wrapper-quest{
+    height: 140px;
+    width: 250px;
+    background: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    /* margin: auto; */
+    margin-top: 10;
+    top: 38%;
+    left: 13%;
+
+    box-shadow: 0px 4px 15px -8px rgb(0 0 3 / 50%);
+}
+.sortpopup__wrapper-quest p{
+    padding: 10px;
+    text-align: center;
+}
+/*----------------------QuestionBlock-----------------------*/

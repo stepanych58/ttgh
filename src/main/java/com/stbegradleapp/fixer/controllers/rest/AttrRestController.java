@@ -1,6 +1,7 @@
 package com.stbegradleapp.fixer.controllers.rest;
 
 import com.stbegradleapp.fixer.model.params.OrderAttribute;
+import com.stbegradleapp.fixer.repositories.AttributeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;

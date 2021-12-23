@@ -1,6 +1,6 @@
 package com.stbegradleapp.fixer;
 
-import com.stbegradleapp.fixer.controllers.rest.AttributeRepository;
+import com.stbegradleapp.fixer.repositories.AttributeRepository;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.OrderStatus;
@@ -17,6 +17,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -33,14 +34,15 @@ public class FixerApplication {
                                      AttributeRepository attributeRepository,
                                      OrderParameterRepository parameterRepository,
                                      OrderRepository clientOrderRepository,
-                                     StorageService storageService
+                                     StorageService storageService,
+                                     PasswordEncoder passwordEncoder
     ) {
         return args -> {
             storageService.deleteAll();
             storageService.init();
 
 
-            userRepository.save(new FixerUser("Salavat", "89279874356", UserRole.ADMIN));
+            userRepository.save(new FixerUser("Salavat", passwordEncoder.encode("1111"),"89279874356", UserRole.ADMIN));
             FixerUser sveta = new FixerUser("Sveta", "89279874233", UserRole.CLIENT);
             userRepository.save(sveta);
             FixerUser genadii = new FixerUser("Genadii", "89275785698", UserRole.ENGINEER);

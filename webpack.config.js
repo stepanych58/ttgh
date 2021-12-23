@@ -1,10 +1,13 @@
 var path = require('path');
 
 module.exports = {
-    entry: './src/main/js/app.js',
+    entry: './src/main/js/index.js',
     devtool: 'sourcemaps',
     cache: true,
     mode: 'development',
+    resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    },
     output: {
         path: __dirname,
         filename: './src/main/resources/static/built/bundle.js'
@@ -25,7 +28,45 @@ module.exports = {
                             },]
                     }
                 }]
-            }
+            },
+            {
+                test: /\.css$/i,
+                // loader: "css-loader",
+                // options: {
+                //     modules: {
+                //         auto: true,
+                //     },
+                // },
+                use: ["style-loader", "css-loader"],
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            query: {
+                                name:'assets/[name].[ext]'
+                            }
+                        }
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            query: {
+                                mozjpeg: {
+                                    progressive: true,
+                                },
+                                gifsicle: {
+                                    interlaced: true,
+                                },
+                                optipng: {
+                                    optimizationLevel: 7,
+                                }
+                            }
+                        }
+                    }]
+            },
         ]
     }
 };
