@@ -11,8 +11,6 @@ import {Routes, Route} from 'react-router-dom';
 
 
 function App() {
-
-
     const items = [
         {value: 'создать', href: './1', icon: <FaPlusCircle/>,},
         {value: 'заказы', href: './2', icon: <FaBorderAll/>,},

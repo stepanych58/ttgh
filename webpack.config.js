@@ -40,32 +40,18 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
+                test: /\.(png|jpe?g|gif|svg)$/i,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
-                            query: {
-                                name:'assets/[name].[ext]'
-                            }
+                            name: '[name].[ext]',
+                            esModule:false,
+                            publicPath: 'images'
                         }
                     },
-                    {
-                        loader: 'image-webpack-loader',
-                        options: {
-                            query: {
-                                mozjpeg: {
-                                    progressive: true,
-                                },
-                                gifsicle: {
-                                    interlaced: true,
-                                },
-                                optipng: {
-                                    optimizationLevel: 7,
-                                }
-                            }
-                        }
-                    }]
+                ],
+
             },
         ]
     }

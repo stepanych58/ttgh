@@ -1,5 +1,9 @@
 package com.stbegradleapp.fixer.config;
 
+import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -22,6 +26,17 @@ import java.util.Collections;
 @EnableAutoConfiguration
 @ConfigurationPropertiesScan("com.stbegradleapp.fixer")
 public class SpringConfig implements WebMvcConfigurer {
+
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.LOOSE)
+                .setFieldMatchingEnabled(true)
+                .setSkipNullEnabled(true)
+                .setFieldAccessLevel(PRIVATE);
+        return mapper;
+    }
 
     @Bean
     public FilterRegistrationBean corsFilter() {

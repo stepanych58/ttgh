@@ -1,4 +1,4 @@
-import logo from '../img/1.png';
+import logo from '../images/1.png';
 import '../App.css';
 import { Button } from '../cards'
 
