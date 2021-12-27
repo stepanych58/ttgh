@@ -1,0 +1,219 @@
+/*===========компонент BTN-Burger.jsx=============*/
+.center {
+    top: 34px;
+    left: 88%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 20px;
+  }
+  
+  /* .center:before,
+  .center:after,
+  .center div {
+    background: black;
+    content: "";
+    display: block;
+    height: 2px;
+    border-radius: 3px;
+    margin: 5px 0;
+    transition: 0.5s;
+  }
+  .center:hover:before {
+    transform: translateY(7px) rotate(135deg);
+  }
+  .center:hover:after {
+    transform: translateY(-7px) rotate(-135deg);
+  }
+  .center:hover div {
+    transform: scale(0);
+  } */
+
+.center span {
+    background: black;
+    content: "";
+    display: block;
+    height: 2px;
+    border-radius: 3px;
+    margin: 5px 0;
+    /* transition: 0.5s; */
+  }
+
+  .center:after {
+    background: black;
+    content: "";
+    display: block;
+    height: 2px;
+    border-radius: 3px;
+    margin: 5px 0;
+    /* transition: 0.5s; */
+  }
+  .center:before {
+    background: black;
+    content: "";
+    display: block;
+    height: 2px;
+    border-radius: 3px;
+    margin: 5px 0;
+    /* transition: 0.5s; */
+  }
+
+
+  .center.active:before {
+    transform: translateY(7px) rotate(135deg);
+  }
+  .center.active:after {
+    transform: translateY(-7px) rotate(-135deg);
+  }
+  .center.active span {
+    transform: scale(0);
+  }
+
+
+
+
+
+.Y 
+
+.active {
+  top: 34px;
+  left: 88%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 20px;
+}
+
+/* .center:before,
+.center:after,
+.center div {
+  background: black;
+  content: "";
+  display: block;
+  height: 2px;
+  border-radius: 3px;
+  margin: 5px 0;
+  transition: 0.5s;
+}
+.center:hover:before {
+  transform: translateY(7px) rotate(135deg);
+}
+.center:hover:after {
+  transform: translateY(-7px) rotate(-135deg);
+}
+.center:hover div {
+  transform: scale(0);
+} */
+
+.Y span {
+  background: rgb(255, 255, 255);
+  content: "";
+  display: block;
+  height: 2px;
+  border-radius: 3px;
+  margin: 5px 0;
+  /* transition: 0.5s; */
+}
+
+.Y:after {
+  background: rgb(255, 255, 255);
+  content: "";
+  display: block;
+  height: 2px;
+  border-radius: 3px;
+  margin: 5px 0;
+  /* transition: 0.5s; */
+}
+.Y:before {
+  background: rgb(255, 255, 255);
+  content: "";
+  display: block;
+  height: 2px;
+  border-radius: 3px;
+  margin: 5px 0;
+  /* transition: 0.5s; */
+}
+
+
+.Y.active:before {
+  position: relative;
+  top: 21px;
+  left: 85%;
+  width: 20px;
+  transform: translateY(7px) rotate(135deg);
+}
+.Y.active:after {
+  position: relative;
+  top: 21px;
+  left: 85%;
+  width: 20px;
+  transform: translateY(-7px) rotate(-135deg);
+}
+.Y.active span {
+  transform: scale(0);
+}
+  /*===========компонент BTN-Burger.jsx=============*/
+
+/*----------------------menu active-----------------------*/
+.menu{
+display: none;
+}
+.menu.active__menu{
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 600px;
+  background: black;
+  z-index: 100;
+}
+.hr__mune{
+  position: relative;
+  top: -33px;
+}
+/*----------------------menu active-----------------------*/
+
+
+/*----------------------logo2-----------------------*/
+.bl__logo-2{
+	display: flex;
+	/* margin-top: 18px; */
+    margin-left: 10px;
+}
+.tv__one-2{
+	border-radius: 15px;
+	width: 130px;
+	height: 30px;
+	background-color: #46D29B;
+  margin-top: 18px;
+}
+.tv__two-2{
+	position: absolute;
+	left: 79px;
+    border-radius: 15px;
+	width: 79px;
+	height: 30px;
+	background-color: #28AAA7;
+  margin-top: 18px;
+}
+.tv__one-2 p{
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: bolder;
+	color: #fff;
+	padding: 7px 21px;
+}
+.tv__two-2 p{
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: bolder;
+	color: #fff;
+  padding: 7px 12px;
+}
+.container__logo2{
+  position: relative;
+  left: 0px;
+  top: -26px;
+  width: 168px;
+  height: 64px;
+  background-color: rgb(0, 0, 0);
+}
+/*----------------------logo2-----------------------*/
+
+

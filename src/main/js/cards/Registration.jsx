@@ -1,55 +1,76 @@
 import React from "react";
 import '../App.css';
-// import logo from '../img/1.png';
-// import Button from '../Button.jsx'
-// import InputPassword from '../InputPassword.jsx'
-// import InputText from "../InputText";
-// import Logo from "../Logo";
-// import BtnBurger from '../BtnBurger';
+// import './step/step.css'
+import { MainContext } from '../App';
 
 
-import { BtnBurger, Logo, Button, InputPassword, InputText, } from '../cards'
+import { Button } from '../cards'
 
 function Registration() {
+    const { onNextStep } = React.useContext(MainContext);
+    const [inputValue, setInputValue] = React.useState('');
+    const nextDisabled = !inputValue;
+
+    const handleChangeInput = (event) => {
+        setInputValue(event.target.value);
+    }
+
+
+    const onClickNextStep = () => {
+        onNextStep();
+    }
+
     return (
-        <div className="wrapper">
-            <div className="wrapper__content">
-                <div className="header__container">
-                    <div className="header__logo">
-                        <Logo />
-                    </div>
-                </div>
-                <BtnBurger />
-                <div className="content">
+        <>
+            <div className="content">
+                <div>
                     <div>
-                        <div>
-                            <h1 className="zgl__login--card--reg">Регистрация</h1>
-                            <div className="bl__registr">
-                                <p>Заполните все поля, чтобы создать аккаунт</p>
-                            </div>
+                        <h1 className="zgl__login--card--reg">Регистрация</h1>
+                        <div className="bl__registr">
+                            <p>Заполните поля, чтобы создать аккаунт</p>
                         </div>
                     </div>
+                </div>
+                <div className="display__input--field">
                     <div className="input__regstr">
-                        <InputText text="Фамилия" />
-                        <InputText text="Имя" />
-                        <InputText text="Телефон" />
-                        <InputText text="Эл.почта" />
+                        <input
+                            placeholder="Имя"
+                            className="field"
+                        // onChange={handleChangeInput}
+                        // value={inputValue}
+                        />
+                        <input
+                            placeholder="Фамилия"
+                            className="field"
+                            onChange={handleChangeInput}
+                            value={inputValue}
+                        />
 
-                        <InputPassword text="Пароль" />
+                        {/* <InputText text="Имя" /> */}
+                        {/* <InputText text="Эл.почта" /> */}
+
+                        {/* <InputPassword text="Пароль" />
                         <InputPassword text="Повторить пароль" />
                         <div className="src__password">
                             <p>Забыли пароль?</p>
-                        </div>
+                        </div> */}
                         <div>
-                            <Button butName="Создать" />
                         </div>
-                        <div className="cont__bl--card--reg">
-                            <p>Уже есть аккаунт? <span>Войдите</span></p>
-                        </div>
+                        <Button
+                            disabled={nextDisabled}
+                            onClick={onClickNextStep}
+                        >Далее</Button>
+                        {/* <button
+                            disabled={nextDisabled}
+                            onClick={onClickNextStep}
+                        >Кнопка</button> */}
+                    </div>
+                    <div className="cont__bl--card--reg">
+                        <p>Уже есть аккаунт? <span>Войдите</span></p>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

@@ -11,11 +11,12 @@ function ProfileName() {
             <div className="content__profile">
                 <div className="">
                     <div className="input__regstr">
+                        <h3>Изменить Имя / Фамилию</h3>
                         <InputText text="Имя" />
                         <InputText text="Фамилия" />
                     </div>
                     <div>
-                        <Button>Создать</Button>
+                        <Button>Изменить</Button>
                     </div>
                 </div>
             </div>
