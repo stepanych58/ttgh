@@ -1,6 +1,6 @@
 package com.stbegradleapp.fixer.repositories;
 
-import com.stbegradleapp.fixer.model.params.OrderAttribute;
+import com.stbegradleapp.fixer.model.params.order.OrderAttribute;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

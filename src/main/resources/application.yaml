@@ -1,0 +1,49 @@
+spring:
+  jpa:
+    generate-ddl: 'false'
+    database: postgresql
+    show-sql: 'false'
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    properties:
+      hibernate:
+        format_sql: 'true'
+        id:
+          new_generator_mappings: 'false'
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+  data:
+    rest:
+      base-path: /api
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    timeout:
+      seconds: '900'
+
+  datasource:
+    password: 1q2q3q
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+#    data: create_test_data.sql
+
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: 'false'
+logging:
+  level:
+    org:
+      springframework: DEBUG
+    com:
+      stbegradleapp: DEBUG
+server:
+  port: '8050'
+
+# App Properties
+bezkoder:
+  app:
+    jwtSecret: bezKoderSecretKey
+    jwtExpirationMs: 86400000

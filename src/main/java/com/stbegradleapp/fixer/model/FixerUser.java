@@ -3,7 +3,9 @@ package com.stbegradleapp.fixer.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.stbegradleapp.fixer.model.params.user.UserParameter;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FixerUser {
     @Id
@@ -26,6 +29,7 @@ public class FixerUser {
     @Max(value = 5)
     @Column
     protected Double rate;
+
 
     //https://habr.com/ru/post/482552/
 
@@ -43,9 +47,10 @@ public class FixerUser {
     @Column
     protected UserRole role;
 
-    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", fetch = FetchType.LAZY)
     private List<ClientOrder> orders;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserParameter> parameters;
 
     public FixerUser(String name, String phoneNumber, UserRole role) {
         this.name = name;
@@ -64,6 +69,14 @@ public class FixerUser {
 
     }
 
+    public UserParameter getParameterByName(String parameterName) {
+        for (UserParameter parameter: getParameters()) {
+            if (parameter.getName().equals(parameterName)) {
+                return parameter;
+            }
+        }
+        return null;
+    }
     @Override
     public String toString() {
         return "USER{" +

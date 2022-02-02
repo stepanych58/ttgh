@@ -1,11 +1,11 @@
 package com.stbegradleapp.fixer;
 
-import com.stbegradleapp.fixer.repositories.AttributeRepository;
+import com.stbegradleapp.fixer.repositories.OrderAttributeRepository;
 import com.stbegradleapp.fixer.controllers.rest.UserRestController;
 import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import com.stbegradleapp.fixer.repositories.OrderParameterRepository;
-import com.stbegradleapp.fixer.servises.UserService;
+import com.stbegradleapp.fixer.servises.user.UserService;
 import com.stbegradleapp.fixer.storage.StorageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,7 +20,7 @@ public class FixerUserTest {
     @MockBean
     FixerUserRepository userRepository;
     @MockBean
-    AttributeRepository attributeRepository;
+    OrderAttributeRepository attributeRepository;
     @MockBean
     OrderParameterRepository orderParameterRepository;
     @MockBean

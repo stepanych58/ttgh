@@ -4,7 +4,7 @@ import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.OrderStatus;
 import com.stbegradleapp.fixer.model.UserRole;
-import com.stbegradleapp.fixer.model.params.OrderParameter;
+import com.stbegradleapp.fixer.model.params.order.OrderParameter;
 import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

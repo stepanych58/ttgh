@@ -1,4 +1,4 @@
-package com.stbegradleapp.fixer.model.params;
+package com.stbegradleapp.fixer.model.params.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

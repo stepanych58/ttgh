@@ -2,7 +2,7 @@ package com.stbegradleapp.fixer.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.stbegradleapp.fixer.model.params.OrderParameter;
+import com.stbegradleapp.fixer.model.params.order.OrderParameter;
 import lombok.Getter;
 
 import javax.persistence.*;

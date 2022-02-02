@@ -1,22 +1,19 @@
 package com.stbegradleapp.fixer.controllers.rest;
 
-import com.stbegradleapp.fixer.model.params.AttrDTO;
-import com.stbegradleapp.fixer.model.params.AttrType;
-import com.stbegradleapp.fixer.model.params.ListValue;
-import com.stbegradleapp.fixer.model.params.OrderAttribute;
-import com.stbegradleapp.fixer.repositories.AttributeRepository;
+import com.stbegradleapp.fixer.dto.AttrDTO;
+import com.stbegradleapp.fixer.model.params.order.ListValue;
+import com.stbegradleapp.fixer.model.params.order.OrderAttribute;
+import com.stbegradleapp.fixer.repositories.OrderAttributeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigInteger;
@@ -27,14 +24,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
-@CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600)
 @RestController
 @RequestMapping("/fixer/api/attrs")
 @Slf4j
-public class AttrRestController {
+public class OrderAttrRestController {
 
     @Autowired
-    private AttributeRepository attributeRepository;
+    private OrderAttributeRepository attributeRepository;
     @Autowired
     private ModelMapper modelMapper;
 

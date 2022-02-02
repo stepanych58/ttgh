@@ -1,4 +1,4 @@
-package com.stbegradleapp.fixer.servises;
+package com.stbegradleapp.fixer.servises.user;
 
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.UserRole;
@@ -20,21 +20,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     @Autowired
     FixerUserRepository userRepository;
 
     MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
-
-    @Override
-    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-        final FixerUser fixerUser = findByPhoneNumber(phoneNumber).orElseThrow(() ->
-                new UsernameNotFoundException(
-                        MessageFormatter.format(messages.getMessage("JdbcDaoImpl.notFound"), phoneNumber).getMessage()));
-        return getUserDetails(fixerUser);
-    }
-
 
     public Optional<FixerUser> findByPhoneNumber(String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber);
@@ -42,16 +33,6 @@ public class UserService implements UserDetailsService {
 
     public FixerUser save(FixerUser user) {
         return userRepository.save(user);
-    }
-
-    public UserDetails getUserDetails(FixerUser fixerUser) {
-        final UserDetails result = User.builder()
-                .username(fixerUser.getId().toString())
-                .password(fixerUser.getPassword())
-                .roles(fixerUser.getRole().name())
-                .build();
-        System.out.println("stbe result: " +result);
-        return result;
     }
 
     public List<FixerUser> getAllEngeeners() {

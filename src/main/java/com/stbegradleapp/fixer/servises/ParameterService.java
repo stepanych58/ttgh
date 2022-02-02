@@ -1,7 +1,7 @@
 package com.stbegradleapp.fixer.servises;
 
 import com.stbegradleapp.fixer.model.ClientOrder;
-import com.stbegradleapp.fixer.model.params.OrderParameter;
+import com.stbegradleapp.fixer.model.params.order.OrderParameter;
 import com.stbegradleapp.fixer.repositories.OrderParameterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,6 @@
 package com.stbegradleapp.fixer;
 
-import com.stbegradleapp.fixer.model.FixerUser;
-import com.stbegradleapp.fixer.servises.UserService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;

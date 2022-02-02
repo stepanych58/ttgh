@@ -38,21 +38,37 @@ public class SpringConfig implements WebMvcConfigurer {
         return mapper;
     }
 
-    @Bean
-    public FilterRegistrationBean corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");
-        config.setAllowedHeaders(Collections.unmodifiableList(
-                Collections.singletonList(CorsConfiguration.ALL)));
-        config.setAllowedMethods(Collections.unmodifiableList(
-                Collections.singletonList(CorsConfiguration.ALL)));
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
-        return bean;
-    }
+//    @Bean
+//    public FilterRegistrationBean corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("http://localhost:3000/l");
+//        config.addAllowedOrigin("http://localhost:3000");
+//        config.addAllowedOrigin("http://127.0.0.1:3000/l");
+//        config.addAllowedOrigin("http://127.0.0.1:3000");
+//        config.addAllowedOrigin("3000");
+//        config.addAllowedOrigin("localhost:3000");
+//        config.addAllowedOrigin("localhost:3000/l");
+//        config.addAllowedOrigin("127.0.0.1:3000/l");
+//        config.addAllowedOrigin("127.0.0.1:3000");
+//        config.setAllowedHeaders(Collections.unmodifiableList(
+//                Collections.singletonList(CorsConfiguration.ALL)));
+//        config.setAllowedMethods(Collections.unmodifiableList(
+//                Collections.singletonList(CorsConfiguration.ALL)));
+//        config.setAllowedOriginPatterns(Collections.unmodifiableList(
+//                Collections.singletonList(CorsConfiguration.ALL)));
+////        config.setAllowedOrigins(Collections.unmodifiableList(
+////                Collections.singletonList(CorsConfiguration.ALL)));
+////        config.
+//        source.registerCorsConfiguration("/**", config);
+//
+//        System.out.println("STBE CONFIGURED");
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+//        bean.setOrder(0);
+//        return bean;
+//    }
+
     @Bean
     public Logger logger() {
         return LoggerFactory.getLogger("application");
@@ -69,6 +85,15 @@ public class SpringConfig implements WebMvcConfigurer {
             }
         };
     }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**");
+//    }
+
+//    @Bean
+//    public InMemoryTokenStore tokenStore() {
+//        return new InMemoryTokenStore();
+//    }
 
     @Bean
     public FilterRegistrationBean hiddenHttpMethodFilter(){

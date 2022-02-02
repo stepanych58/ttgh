@@ -1,14 +1,13 @@
-package com.stbegradleapp.fixer.model.params;
+package com.stbegradleapp.fixer.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
-
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @Data
 public class AttrDTO implements Serializable {
     private String id, name, type;
-    @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     private List<String> listValues;
 }
