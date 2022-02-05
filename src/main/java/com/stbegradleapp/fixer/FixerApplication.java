@@ -17,6 +17,7 @@ import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.UserAttrRepository;
 import com.stbegradleapp.fixer.repositories.UserParameterRepository;
 import com.stbegradleapp.fixer.storage.StorageService;
+import lombok.Data;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -188,6 +189,67 @@ public class FixerApplication {
                 equipment, description, photo, dateAttr, clientName, phoneNumber, address
         );
         attributeRepository.saveAll(listAttrsThatShouldBeInSystem);
+    }
+
+
+
+
+    interface Транспорт {
+        void ехать();
+    }
+
+    @Data
+    static
+    class Велосипед implements Транспорт{
+        public void ехать() {
+            System.out.println("zzzz");
+        }
+    }
+
+    @Data
+    static
+    class Машина implements Транспорт{
+        public void ехать() {
+
+        }
+    }
+
+    @Data
+    static
+    class Санки implements Транспорт{
+
+        @Override
+        public void ехать() {
+            System.out.println("водитель лох");
+        }
+    }
+
+    static class Водитель {
+        Транспорт транспорт;
+
+        public Водитель(Транспорт транспорт) {
+            this.транспорт = транспорт;
+        }
+    }
+
+
+    public static void main1(String[] args) {
+        Велосипед аист = new Велосипед();
+        Велосипед детский = new Велосипед();
+        Велосипед горный = new Велосипед();
+
+        Машина ауди = new Машина();
+        Машина солярис = new Машина();
+        Машина жигули = new Машина();
+        Санки зимние = new Санки();
+
+        Водитель салават = new Водитель(солярис);
+        Водитель юра = new Водитель(ауди);
+        Водитель степа = new Водитель(зимние);
+
+        салават.транспорт.ехать();
+        степа.транспорт.ехать();
+
     }
 
 
