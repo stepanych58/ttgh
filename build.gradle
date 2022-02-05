@@ -16,13 +16,13 @@ configurations {
 	}
 }
 
-frontend {
-	nodeDistributionProvided = true
-	//nodeInstallDirectory = preinstalledNodeDistributionDirectory
-	assembleScript = 'run build'
-//	cleanScript = 'run clean'
-//	checkScript = 'run check'
-}
+//frontend {
+//	nodeDistributionProvided = true
+//	//nodeInstallDirectory = preinstalledNodeDistributionDirectory
+//	assembleScript = 'run build'
+////	cleanScript = 'run clean'
+////	checkScript = 'run check'
+//}
 
 repositories {
 	mavenCentral()
