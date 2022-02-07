@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.stbegradleapp.fixer.model.ClientOrder;
+import com.stbegradleapp.fixer.model.params.AttrType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,11 +46,18 @@ public class OrderParameter {
     public OrderParameter(OrderAttribute attribute, String value) {
         this.attribute = attribute;
         this.value = value;
-
     }
 
     public void setOrder(ClientOrder clientOrder) {
         this.order = clientOrder;
+    }
+
+    public String getName() {
+        return getAttribute().getName();
+    }
+
+    public AttrType getType() {
+        return getAttribute().getType();
     }
 
     @Override
