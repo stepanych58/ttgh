@@ -1,9 +1,8 @@
 package com.stbegradleapp.fixer.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.stbegradleapp.fixer.model.params.user.UserParameter;
+import com.stbegradleapp.fixer.model.params.user.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,17 +12,20 @@ import javax.validation.constraints.Size;
 import java.math.BigInteger;
 import java.util.List;
 
+import static com.stbegradleapp.fixer.model.params.user.UserRole.CLIENT;
+
 @Entity
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FixerUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     protected BigInteger id;
     @Column(length = 200, nullable = false)
-    protected String name;
+    protected String firstName;
+    @Column(length = 200)
+    protected String secondName;
     @Column(nullable = false, unique = true)
     protected String phoneNumber;
     @Max(value = 5)
@@ -40,9 +42,6 @@ public class FixerUser {
 
     @Column
     private String photo;
-//    @Transient
-//    @JsonIgnore
-//    private String passwordConfirm;
 
     @Column
     protected UserRole role;
@@ -53,16 +52,26 @@ public class FixerUser {
     private List<UserParameter> parameters;
 
     public FixerUser(String name, String phoneNumber, UserRole role) {
-        this.name = name;
+        this.firstName = name;
         this.phoneNumber = phoneNumber;
         this.role = role;
     }
 
-    public FixerUser(String name, String pswd, String phoneNumber, UserRole role) {
-        this.name = name;
-        this.password = pswd;
+    public FixerUser(String name, String phoneNumber, String password) {
+        this.firstName = name;
         this.phoneNumber = phoneNumber;
-        this.role = role;
+        this.password = password;
+        this.role = CLIENT;
+    }
+
+    public FixerUser(String name, String pswd, String phoneNumber, UserRole role) {
+        this(name, phoneNumber, role);
+        this.password = pswd;
+    }
+
+    public FixerUser(String name, String secondName, String pswd, String phoneNumber, UserRole role) {
+        this(name, pswd, phoneNumber, role);
+        this.secondName = secondName;
     }
 
     public FixerUser() {
@@ -81,7 +90,7 @@ public class FixerUser {
     public String toString() {
         return "USER{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + firstName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", role=" + role +
                 '}';

@@ -10,7 +10,9 @@ import java.util.List;
 @JsonInclude(value = NON_NULL)
 @Data
 public class UserDTO {
-    private String name;
+    private String firstName;
+    private String secondName;
     private String phoneNumber;
+    private String password;
     private List<UserParameterDTO> parameters;
 }

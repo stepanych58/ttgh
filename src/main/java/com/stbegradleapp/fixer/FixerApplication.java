@@ -6,7 +6,7 @@ import com.stbegradleapp.fixer.repositories.OrderAttributeRepository;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.OrderStatus;
-import com.stbegradleapp.fixer.model.UserRole;
+import com.stbegradleapp.fixer.model.params.user.UserRole;
 import com.stbegradleapp.fixer.model.params.AttrType;
 import com.stbegradleapp.fixer.model.params.order.ListValue;
 import com.stbegradleapp.fixer.model.params.order.OrderAttribute;
@@ -17,7 +17,6 @@ import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.UserAttrRepository;
 import com.stbegradleapp.fixer.repositories.UserParameterRepository;
 import com.stbegradleapp.fixer.storage.StorageService;
-import lombok.Data;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -67,7 +66,7 @@ public class FixerApplication {
                     getUserParams("dima@yandex.ru", "Москва, ул. Новоогорева д. 1733б, кв 14", "Саленый");
             createUser(userAttrRepository, userParameterRepository, userRepository, dima, dimaParams);
 
-            FixerUser sveta = new FixerUser("Света", passwordEncoder.encode("111"),
+            FixerUser sveta = new FixerUser("Света", "Хорошева", passwordEncoder.encode("111"),
                     "89276976454", UserRole.CLIENT);
             Map<String, String> svetaParams =
                     getUserParams("sveta@yandex.ru", "Астрахань, ул. Чапаева д. 18б, кв 123", "Хорошева");
@@ -99,13 +98,7 @@ public class FixerApplication {
         };
     }
 
-    private Map<String, String> getUserParams(String email, String address, String secondName) {
-        Map<String, String> genadiiParams = new HashMap<>();
-        genadiiParams.put("Email", email);
-        genadiiParams.put("Address", address);
-        genadiiParams.put("Second Name", secondName);
-        return genadiiParams;
-    }
+
 
     private Map<String, String> getOrderParams(String attr1,
                                                String attr2,
@@ -153,20 +146,32 @@ public class FixerApplication {
     ) {
         userRepository.save(user);
         Iterator<String> iterator = params.keySet().iterator();
-        String next = iterator.next();
-        UserParameter p1 = new UserParameter(attributeRepository.findByName(next), params.get(next), user);
-        next = iterator.next();
-        UserParameter p2 = new UserParameter(attributeRepository.findByName(next), params.get(next), user);
-        next = iterator.next();
-        UserParameter p3 = new UserParameter(attributeRepository.findByName(next), params.get(next), user);
-        userParameterRepository.saveAll(List.of(p1, p2, p3));
+
+        while (iterator.hasNext() ) {
+            String next = iterator.next();
+            userParameterRepository.save(new UserParameter(attributeRepository.findByName(next), params.get(next), user));
+        }
+//        UserParameter p1 = new UserParameter(attributeRepository.findByName(next), params.get(next), user);
+//        next = iterator.next();
+//        UserParameter p2 = new UserParameter(attributeRepository.findByName(next), params.get(next), user);
+//        next = iterator.next();
+//        UserParameter p3 = new UserParameter(attributeRepository.findByName(next), params.get(next), user);
+//        userParameterRepository.saveAll(List.of(p1, p2, p3));
+    }
+
+    private Map<String, String> getUserParams(String email, String address, String secondName) {
+        Map<String, String> genadiiParams = new HashMap<>();
+        genadiiParams.put("Почта", email);
+        genadiiParams.put("Адрес", address);
+//        genadiiParams.put("Second Name", secondName);
+        return genadiiParams;
     }
 
     private void createTestUserAttrs(UserAttrRepository userAttrRepository) {
         List<UserAttribute> attrs = List.of(
-                new UserAttribute("Email", AttrType.EMAIL),
-                new UserAttribute("Address", AttrType.ADDRESS),
-                new UserAttribute("Second Name", AttrType.TEXT)
+                new UserAttribute("Почта", AttrType.EMAIL),
+                new UserAttribute("Адрес", AttrType.ADDRESS)
+//                new UserAttribute("Second Name", AttrType.TEXT)
         );
         userAttrRepository.saveAll(attrs);
     }
@@ -190,68 +195,6 @@ public class FixerApplication {
         );
         attributeRepository.saveAll(listAttrsThatShouldBeInSystem);
     }
-
-
-
-
-    interface Транспорт {
-        void ехать();
-    }
-
-    @Data
-    static
-    class Велосипед implements Транспорт{
-        public void ехать() {
-            System.out.println("zzzz");
-        }
-    }
-
-    @Data
-    static
-    class Машина implements Транспорт{
-        public void ехать() {
-
-        }
-    }
-
-    @Data
-    static
-    class Санки implements Транспорт{
-
-        @Override
-        public void ехать() {
-            System.out.println("водитель лох");
-        }
-    }
-
-    static class Водитель {
-        Транспорт транспорт;
-
-        public Водитель(Транспорт транспорт) {
-            this.транспорт = транспорт;
-        }
-    }
-
-
-    public static void main1(String[] args) {
-        Велосипед аист = new Велосипед();
-        Велосипед детский = new Велосипед();
-        Велосипед горный = new Велосипед();
-
-        Машина ауди = new Машина();
-        Машина солярис = new Машина();
-        Машина жигули = new Машина();
-        Санки зимние = new Санки();
-
-        Водитель салават = new Водитель(солярис);
-        Водитель юра = new Водитель(ауди);
-        Водитель степа = new Водитель(зимние);
-
-        салават.транспорт.ехать();
-        степа.транспорт.ехать();
-
-    }
-
 
 //    @Bean
 //    public WebMvcConfigurer corsConfigurer() {

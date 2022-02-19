@@ -5,16 +5,18 @@ import com.stbegradleapp.fixer.dto.OrderParameterDTO;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.OrderStatus;
-import com.stbegradleapp.fixer.model.UserRole;
+import com.stbegradleapp.fixer.model.params.user.UserRole;
 import com.stbegradleapp.fixer.model.params.order.OrderParameter;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import com.stbegradleapp.fixer.repositories.OrderAttributeRepository;
 import com.stbegradleapp.fixer.repositories.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +25,10 @@ import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/fixer/api/order/")
+@Slf4j
 public class OrderRestController {
     @Autowired
     private OrderRepository orderRepository;
@@ -58,7 +62,6 @@ public class OrderRestController {
         typeMap2.addMappings(mapper ->
                 mapper.using(collectionToSize2).map(ClientOrderDTO::getParameters, ClientOrder::setParameters)
         );
-        // add deep mapping to flatten source's Player object into a single field in destination
         typeMap.addMappings(
                 mapper -> mapper.map(src -> src.getClient().getPhoneNumber(), ClientOrderDTO::setClient)
         );
@@ -115,8 +118,13 @@ public class OrderRestController {
     }
 
     @RequestMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ClientOrderDTO create(@RequestBody ClientOrderDTO order){
+    public ClientOrderDTO create(@RequestBody ClientOrderDTO order, Authentication auth){
         String clientPhone = order.getClient();
+        log.info("order/create");
+        if (ObjectUtils.isEmpty(clientPhone) && auth != null) {
+            clientPhone = auth.getName();
+            log.info("clientPhone {}", clientPhone);
+        }
         String executorPhone = order.getExecutor();
         Optional<FixerUser> clientObj = userRepository.findByPhoneNumber(clientPhone);
         Optional<FixerUser> executorObj = userRepository.findByPhoneNumber(executorPhone);

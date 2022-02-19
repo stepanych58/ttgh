@@ -1,4 +1,4 @@
-package com.stbegradleapp.fixer.model;
+package com.stbegradleapp.fixer.model.params.user;
 
 public enum UserRole {
     CLIENT, /*WHO MAKE ORDER*/

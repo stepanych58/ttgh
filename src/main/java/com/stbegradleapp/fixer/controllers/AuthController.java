@@ -2,11 +2,14 @@ package com.stbegradleapp.fixer.controllers;
 
 import com.stbegradleapp.fixer.config.jwt.ExpiredTokensCashe;
 import com.stbegradleapp.fixer.config.jwt.JwtUtils;
+import com.stbegradleapp.fixer.dto.UserDTO;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.JwtResponse;
 import com.stbegradleapp.fixer.model.LoginRequest;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
+import com.stbegradleapp.fixer.servises.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,11 +41,10 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    FixerUserRepository userRepository;
-
+    UserService userService;
 
     @Autowired
-    PasswordEncoder encoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -52,7 +54,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -63,7 +64,7 @@ public class AuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-        FixerUser fixerUser = userRepository.findByPhoneNumber(userDetails.getUsername()).orElse(null);
+        FixerUser fixerUser = userService.findByPhoneNumber(userDetails.getUsername()).orElse(null);
         if (fixerUser != null) {
             return ResponseEntity.ok(new JwtResponse(jwt,
                     fixerUser.getId(),
@@ -77,6 +78,13 @@ public class AuthController {
                     "1",
                     roles));
         }
+    }
+
+    @PostMapping(path = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> create(@RequestBody UserDTO user) {
+        FixerUser toSave = new FixerUser(user.getFirstName(), user.getPhoneNumber(), passwordEncoder.encode(user.getPassword()));
+        FixerUser saved = userService.save(toSave);
+        return authenticateUser(new LoginRequest(user.getPhoneNumber(), user.getPassword()));
     }
 
     @GetMapping("/logout")

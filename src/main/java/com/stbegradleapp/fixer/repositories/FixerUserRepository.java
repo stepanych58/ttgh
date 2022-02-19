@@ -1,7 +1,7 @@
 package com.stbegradleapp.fixer.repositories;
 
 import com.stbegradleapp.fixer.model.FixerUser;
-import com.stbegradleapp.fixer.model.UserRole;
+import com.stbegradleapp.fixer.model.params.user.UserRole;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

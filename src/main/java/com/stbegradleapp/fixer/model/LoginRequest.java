@@ -1,8 +1,10 @@
 package com.stbegradleapp.fixer.model;
 
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
-@Data
+@Value
+@RequiredArgsConstructor
 public class LoginRequest {
-    String username, password;
+    private final String username, password;
 }

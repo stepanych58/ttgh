@@ -1,5 +1,6 @@
 package com.stbegradleapp.fixer.controllers.rest;
 
+import com.stbegradleapp.fixer.dto.ClientOrderDTO;
 import com.stbegradleapp.fixer.dto.UserDTO;
 import com.stbegradleapp.fixer.dto.UserParameterDTO;
 import com.stbegradleapp.fixer.model.ClientOrder;
@@ -14,6 +15,7 @@ import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.math.BigInteger;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -37,26 +38,39 @@ public class UserRestController {
     private OrderRepository orderRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void setupMapper() {
         TypeMap<FixerUser, UserDTO> typeMap = modelMapper.createTypeMap(FixerUser.class, UserDTO.class);
+//        TypeMap<UserDTO, FixerUser> dto2jpa = modelMapper.createTypeMap(UserDTO.class, FixerUser.class);
         Converter<List<UserParameter>, List<UserParameterDTO>> collectionToSize = c -> c.getSource() != null ?
-                c.getSource().stream()
-                        .map(parameter ->
-                                new UserParameterDTO(parameter.getName(), parameter.getType(), parameter.getValue()))
-                        .collect(Collectors.toList()) : null;
+            c.getSource().stream()
+                .map(parameter ->
+                    new UserParameterDTO(parameter.getName(), parameter.getType(), parameter.getValue()))
+                .collect(Collectors.toList()) : null;
         typeMap.addMappings(mapper ->
-                mapper.using(collectionToSize).map(FixerUser::getParameters, UserDTO::setParameters)
+            mapper.using(collectionToSize).map(FixerUser::getParameters, UserDTO::setParameters)
         );
+
+//        Converter<UserDTO, String> collectionToSize3 = c -> passwordEncoder.encode(c.getSource().getPassword());
+//        dto2jpa.addMappings(
+//            mapper -> mapper.using(collectionToSize3).map(UserDTO::getPassword, FixerUser::setPassword)
+//        );
+//        dto2jpa.addMappings(
+//            mapping -> mapping.map(src -> src.getPassword(), (dst, val) -> {
+//                if (val != null) {
+//                    String encode = passwordEncoder.encode(String.valueOf(val));
+//                    dst.setPassword(encode);
+//                } else {
+//                    dst.setPassword(null);
+//                }
+//            })
+//        );
     }
 
 
-    @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public FixerUser create(@RequestBody FixerUser user) {
-        validate(user);
-        return user;
-    }
 
     @GetMapping(path = "all")
     public List<UserDTO> all() {
@@ -85,8 +99,9 @@ public class UserRestController {
         String userId = authentication.getName();
         AtomicReference<UserDTO> userDTO = new AtomicReference<>();
         userService.findByPhoneNumber(userId).ifPresent(
-                user -> userDTO.set(modelMapper.map(user, UserDTO.class))
+            user -> userDTO.set(modelMapper.map(user, UserDTO.class))
         );
+
         return userDTO.get();
     }
 
@@ -111,10 +126,14 @@ public class UserRestController {
         System.out.println("validate start fixer user: " + user);
     }
 
-    @GetMapping("/{userId}/orders")
-    public Iterable<ClientOrder> getOrders(@PathVariable("userId") String userId) {
-        Iterable<ClientOrder> allByClientId = orderRepository.findAllByClientId(new BigInteger(userId));
-        return allByClientId;
+    @GetMapping("/orders")
+    public Iterable<ClientOrderDTO> getOrders(Authentication auth) {
+        String userTN = auth.getName();
+        Optional<FixerUser> user = userService.findByPhoneNumber(userTN);
+        List<ClientOrder> orders = user.map(u -> u.getOrders()).orElseThrow(() -> new RuntimeException("error"));
+        List<ClientOrderDTO> result = new ArrayList<>();
+        orders.forEach(o -> result.add(modelMapper.map(o, ClientOrderDTO.class)));
+        return result;
     }
 
     @PostMapping("/{userId}")
@@ -122,43 +141,42 @@ public class UserRestController {
                                          @RequestBody ClientOrder order) {
 
         return orderRepository.save(new ClientOrder(order.getParameters(),
-                userService.getUserById(userId),
-                null,
-                OrderStatus.OPEN));
+            userService.getUserById(userId),
+            null,
+            OrderStatus.OPEN));
     }
 
-    //    @PatchMapping("/{userId}")
-//    public ClientOrder updateOrder(@PathVariable("userId") String userId,
-//                                         @RequestBody ClientOrder order){
-//        order.setOrderForParams();
-//        return orderRepository.save(order);
-//    }
-    @PatchMapping("/p")
-    public ClientOrder updateUser(@Valid @RequestBody UserDTO userDTO) {
-        String phoneNumber = userDTO.getPhoneNumber();
+    @PatchMapping("/update")
+    public UserDTO updateUser(@Valid @RequestBody UserDTO userDTO, Authentication auth) {
+        String phoneNumber = auth.getName();
         if (!StringUtils.hasLength(phoneNumber)) {
             throw new RuntimeException("no phone number");
         }
         Optional<FixerUser> user = userService.findByPhoneNumber(phoneNumber);
         FixerUser fixerUser = user.map(u -> {
-            if (StringUtils.hasLength(userDTO.getName())) {
-                u.setName(userDTO.getName());
+            if (StringUtils.hasLength(userDTO.getFirstName())) {
+                u.setFirstName(userDTO.getFirstName());
             }
+            if (StringUtils.hasLength(userDTO.getSecondName())) {
+                u.setSecondName(userDTO.getSecondName());
+            }
+            if (StringUtils.hasLength(userDTO.getPhoneNumber())) {
+                u.setPhoneNumber(userDTO.getPhoneNumber());
+            }
+
             if (!CollectionUtils.isEmpty(userDTO.getParameters())) {
                 userDTO.getParameters().stream().forEach(
-                        p -> {
-                            UserParameter parameterByName = u.getParameterByName(p.getName());
-                            if (parameterByName != null) {
-                                parameterByName.setValue(p.getValue());
-                            }
+                    p -> {
+                        UserParameter parameterByName = u.getParameterByName(p.getName());
+                        if (parameterByName != null) {
+                            parameterByName.setValue(p.getValue());
                         }
+                    }
                 );
             }
             return u;
         }).orElseThrow(() -> new RuntimeException(" not found user: " + userDTO));
-        userService.save(fixerUser);
-//        orderRepository.save(order)
-        return null;
+        FixerUser save = userService.save(fixerUser);
+        return modelMapper.map(save, UserDTO.class);
     }
-
 }

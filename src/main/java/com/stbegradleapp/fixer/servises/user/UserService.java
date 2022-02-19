@@ -1,17 +1,13 @@
 package com.stbegradleapp.fixer.servises.user;
 
 import com.stbegradleapp.fixer.model.FixerUser;
-import com.stbegradleapp.fixer.model.UserRole;
+import com.stbegradleapp.fixer.model.params.user.UserRole;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
-import lombok.SneakyThrows;
 import org.glassfish.jersey.internal.guava.Lists;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.core.SpringSecurityMessageSource;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 

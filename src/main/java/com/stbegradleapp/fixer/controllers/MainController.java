@@ -1,7 +1,7 @@
 package com.stbegradleapp.fixer.controllers;
 
 import com.stbegradleapp.fixer.model.FixerUser;
-import com.stbegradleapp.fixer.model.UserRole;
+import com.stbegradleapp.fixer.model.params.user.UserRole;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import com.stbegradleapp.fixer.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;

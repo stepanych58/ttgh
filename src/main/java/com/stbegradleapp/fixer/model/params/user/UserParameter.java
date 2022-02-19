@@ -4,16 +4,8 @@ import com.stbegradleapp.fixer.model.FixerUser;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.math.BigInteger;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 @Setter
@@ -32,6 +24,11 @@ public class UserParameter {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private FixerUser user;
+
+    /*
+    *     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
+    private UserParameterGroup parameterGroup;*/
 
     public UserParameter(UserAttribute attribute, String value, FixerUser user) {
         this.attribute = attribute;
@@ -63,7 +60,7 @@ public class UserParameter {
                 "id=" + id +
                 ", attribute={" + attribute.getName() + ", " +attribute.getId() + "}" +
                 ", value='" + value + '\'' +
-                ", user=" + (user == null ? "null": user.getId()) +
+//                ", user=" + (user == null ? "null": user.getId()) +
                 '}';
     }
 }
