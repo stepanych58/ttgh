@@ -1,14 +1,16 @@
 package com.stbegradleapp.fixer.controllers.rest;
 
-import com.stbegradleapp.fixer.dto.ClientOrderDTO;
-import com.stbegradleapp.fixer.dto.UserDTO;
-import com.stbegradleapp.fixer.dto.UserParameterDTO;
+import com.stbegradleapp.fixer.dto.*;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.OrderStatus;
+import com.stbegradleapp.fixer.model.params.user.UserAttribute;
 import com.stbegradleapp.fixer.model.params.user.UserParameter;
 import com.stbegradleapp.fixer.repositories.OrderRepository;
+import com.stbegradleapp.fixer.repositories.UserAttrRepository;
 import com.stbegradleapp.fixer.servises.user.UserService;
+import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -30,44 +32,28 @@ import java.util.stream.Stream;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/fixer/api/user/")
 public class UserRestController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final OrderRepository orderRepository;
+    private final UserAttrRepository userAttrRepository;
+
+    private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void setupMapper() {
         TypeMap<FixerUser, UserDTO> typeMap = modelMapper.createTypeMap(FixerUser.class, UserDTO.class);
-//        TypeMap<UserDTO, FixerUser> dto2jpa = modelMapper.createTypeMap(UserDTO.class, FixerUser.class);
-        Converter<List<UserParameter>, List<UserParameterDTO>> collectionToSize = c -> c.getSource() != null ?
+        Converter<List<UserParameter>, List<ParameterDTO>> collectionToSize = c -> c.getSource() != null ?
             c.getSource().stream()
                 .map(parameter ->
-                    new UserParameterDTO(parameter.getName(), parameter.getType(), parameter.getValue()))
+                    new ParameterDTO(parameter.getName(), parameter.getAttrId(), parameter.getType(), parameter.getValue()))
                 .collect(Collectors.toList()) : null;
         typeMap.addMappings(mapper ->
             mapper.using(collectionToSize).map(FixerUser::getParameters, UserDTO::setParameters)
         );
 
-//        Converter<UserDTO, String> collectionToSize3 = c -> passwordEncoder.encode(c.getSource().getPassword());
-//        dto2jpa.addMappings(
-//            mapper -> mapper.using(collectionToSize3).map(UserDTO::getPassword, FixerUser::setPassword)
-//        );
-//        dto2jpa.addMappings(
-//            mapping -> mapping.map(src -> src.getPassword(), (dst, val) -> {
-//                if (val != null) {
-//                    String encode = passwordEncoder.encode(String.valueOf(val));
-//                    dst.setPassword(encode);
-//                } else {
-//                    dst.setPassword(null);
-//                }
-//            })
-//        );
     }
 
 
@@ -136,6 +122,14 @@ public class UserRestController {
         return result;
     }
 
+    @GetMapping("/model")
+    public Iterable<AttrDTO> getUserModel(Authentication auth) {
+        Iterable<UserAttribute> attrs = userService.getUserModel();
+        Collection<AttrDTO> result = new ArrayList<>();
+        attrs.forEach(o -> result.add(modelMapper.map(o, AttrDTO.class)));
+        return result;
+    }
+
     @PostMapping("/{userId}")
     public ClientOrder saveOrUpdateOrder(@PathVariable("userId") String userId,
                                          @RequestBody ClientOrder order) {
@@ -165,14 +159,22 @@ public class UserRestController {
             }
 
             if (!CollectionUtils.isEmpty(userDTO.getParameters())) {
-                userDTO.getParameters().stream().forEach(
+                List<UserParameter> userParams = userDTO.getParameters().stream().map(
                     p -> {
                         UserParameter parameterByName = u.getParameterByName(p.getName());
                         if (parameterByName != null) {
                             parameterByName.setValue(p.getValue());
+
+                        } else {
+                            Optional<UserAttribute> attribute = userAttrRepository.findById(p.getAttrId());
+                            parameterByName = attribute.map(a -> new UserParameter(a, p.getValue(), u)).orElseThrow(() -> {
+                                throw new RuntimeException("no attr by :" + p.getAttrId());
+                            });
                         }
+                        return parameterByName;
                     }
-                );
+                ).collect(Collectors.toList());
+                u.setParameters(userParams);
             }
             return u;
         }).orElseThrow(() -> new RuntimeException(" not found user: " + userDTO));

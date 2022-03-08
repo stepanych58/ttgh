@@ -8,6 +8,6 @@ import java.util.List;
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @Data
 public class AttrDTO implements Serializable {
-    private String id, name, type;
+    private String attrId, name, type;
     private List<String> listValues;
 }

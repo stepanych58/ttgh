@@ -1,6 +1,7 @@
 package com.stbegradleapp.fixer.model.params.user;
 
 import com.stbegradleapp.fixer.model.FixerUser;
+import com.stbegradleapp.fixer.model.params.AttrType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,18 +41,15 @@ public class UserParameter {
 
     }
 
-    public UserParameter(UserAttribute attribute, String value) {
-        this.attribute = attribute;
-        this.value = value;
-
-    }
-
     public String getName() {
         return getAttribute().getName();
     }
 
-    public String getType() {
-        return getAttribute().getType().name();
+    public AttrType getType() {
+        return getAttribute().getType();
+    }
+    public BigInteger getAttrId() {
+        return getAttribute().getId();
     }
 
     @Override

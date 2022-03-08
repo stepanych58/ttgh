@@ -37,10 +37,6 @@ class PageHeader extends React.Component {
                     <HeaderItem name='Что Чиним?'></HeaderItem>
                     <HeaderItem name='О нас'></HeaderItem>
                     <HeaderItem name='Партнерам'></HeaderItem>
-                    {/*<TextField ></TextField>*/}
-                    {/*<Link href="https://material-ui.com/getting-started/templates/">*/}
-                    {/*    templates*/}
-                    {/*</Link>*/}
                 </div>
                 <LoginControl key={'lctrl'}></LoginControl>
             </div>

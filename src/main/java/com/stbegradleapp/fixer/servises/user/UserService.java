@@ -1,11 +1,13 @@
 package com.stbegradleapp.fixer.servises.user;
 
 import com.stbegradleapp.fixer.model.FixerUser;
+import com.stbegradleapp.fixer.model.params.user.UserAttribute;
 import com.stbegradleapp.fixer.model.params.user.UserRole;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
+import com.stbegradleapp.fixer.repositories.UserAttrRepository;
+import lombok.RequiredArgsConstructor;
 import org.glassfish.jersey.internal.guava.Lists;
 import org.slf4j.helpers.MessageFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,10 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    FixerUserRepository userRepository;
+    final FixerUserRepository userRepository;
+    final UserAttrRepository userAttrRepository;
 
     MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
@@ -52,4 +55,9 @@ public class UserService {
         );
         return user;
     }
+
+    public Iterable<UserAttribute> getUserModel() {
+        return userAttrRepository.findAll();
+    }
+
 }

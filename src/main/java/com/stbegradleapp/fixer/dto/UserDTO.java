@@ -14,5 +14,5 @@ public class UserDTO {
     private String secondName;
     private String phoneNumber;
     private String password;
-    private List<UserParameterDTO> parameters;
+    private List<ParameterDTO> parameters;
 }
