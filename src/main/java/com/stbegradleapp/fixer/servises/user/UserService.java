@@ -2,9 +2,11 @@ package com.stbegradleapp.fixer.servises.user;
 
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.params.user.UserAttribute;
+import com.stbegradleapp.fixer.model.params.user.UserParameter;
 import com.stbegradleapp.fixer.model.params.user.UserRole;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import com.stbegradleapp.fixer.repositories.UserAttrRepository;
+import com.stbegradleapp.fixer.repositories.UserParameterRepository;
 import lombok.RequiredArgsConstructor;
 import org.glassfish.jersey.internal.guava.Lists;
 import org.slf4j.helpers.MessageFormatter;
@@ -23,6 +25,7 @@ public class UserService {
 
     final FixerUserRepository userRepository;
     final UserAttrRepository userAttrRepository;
+    final UserParameterRepository userParameterRepository;
 
     MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
@@ -34,6 +37,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void removeParameter(FixerUser user, BigInteger id) {
+        userParameterRepository.deleteById(id);
+    }
     public List<FixerUser> getAllEngeeners() {
         return Lists.newArrayList(userRepository.findAllByRole(UserRole.ENGINEER));
     }

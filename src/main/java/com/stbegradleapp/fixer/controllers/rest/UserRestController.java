@@ -1,6 +1,9 @@
 package com.stbegradleapp.fixer.controllers.rest;
 
-import com.stbegradleapp.fixer.dto.*;
+import com.stbegradleapp.fixer.dto.AttrDTO;
+import com.stbegradleapp.fixer.dto.ClientOrderDTO;
+import com.stbegradleapp.fixer.dto.ParameterDTO;
+import com.stbegradleapp.fixer.dto.UserDTO;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.OrderStatus;
@@ -10,23 +13,23 @@ import com.stbegradleapp.fixer.repositories.OrderRepository;
 import com.stbegradleapp.fixer.repositories.UserAttrRepository;
 import com.stbegradleapp.fixer.servises.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -57,7 +60,6 @@ public class UserRestController {
     }
 
 
-
     @GetMapping(path = "all")
     public List<UserDTO> all() {
 //        return userService.getAllUsers();
@@ -77,6 +79,12 @@ public class UserRestController {
 //        System.out.println("all: " + all);
 //        return (List<FixerUser>) all;
         return null;
+    }
+
+    @DeleteMapping(path = "/p/{id}")
+    public BigInteger deleteParam(@PathVariable("id") BigInteger id) {
+        userService.removeParameter(null, id);
+        return id;
     }
 
     @GetMapping(path = "/currentUser")
@@ -147,38 +155,47 @@ public class UserRestController {
             throw new RuntimeException("no phone number");
         }
         Optional<FixerUser> user = userService.findByPhoneNumber(phoneNumber);
+
         FixerUser fixerUser = user.map(u -> {
-            if (StringUtils.hasLength(userDTO.getFirstName())) {
-                u.setFirstName(userDTO.getFirstName());
-            }
-            if (StringUtils.hasLength(userDTO.getSecondName())) {
-                u.setSecondName(userDTO.getSecondName());
-            }
-            if (StringUtils.hasLength(userDTO.getPhoneNumber())) {
-                u.setPhoneNumber(userDTO.getPhoneNumber());
-            }
+            setField(userDTO.getFirstName(), u::setFirstName);
+            setField(userDTO.getSecondName(), u::setSecondName);
+            setField(userDTO.getPhoneNumber(), u::setPhoneNumber);
+            setParameters(u, userDTO.getParameters());
 
-            if (!CollectionUtils.isEmpty(userDTO.getParameters())) {
-                List<UserParameter> userParams = userDTO.getParameters().stream().map(
-                    p -> {
-                        UserParameter parameterByName = u.getParameterByName(p.getName());
-                        if (parameterByName != null) {
-                            parameterByName.setValue(p.getValue());
-
-                        } else {
-                            Optional<UserAttribute> attribute = userAttrRepository.findById(p.getAttrId());
-                            parameterByName = attribute.map(a -> new UserParameter(a, p.getValue(), u)).orElseThrow(() -> {
-                                throw new RuntimeException("no attr by :" + p.getAttrId());
-                            });
-                        }
-                        return parameterByName;
-                    }
-                ).collect(Collectors.toList());
-                u.setParameters(userParams);
-            }
             return u;
         }).orElseThrow(() -> new RuntimeException(" not found user: " + userDTO));
         FixerUser save = userService.save(fixerUser);
         return modelMapper.map(save, UserDTO.class);
+    }
+
+    private void setParameters(FixerUser u, List<ParameterDTO> parameters) {
+        if (!parameters.isEmpty()) {
+            List<UserParameter> newParameters = new ArrayList<>();
+            for (ParameterDTO parameterDTO : parameters) {
+                UserParameter parameterByName = u.getParameterByName(parameterDTO.getName());
+                if (parameterByName != null) {
+                    if (!StringUtils.hasLength(parameterDTO.getValue())) {
+                        userService.removeParameter(null, parameterByName.getId());
+                        continue;
+                    }
+                    setField(parameterDTO.getValue(), parameterByName::setValue);
+                } else {
+                    Optional<UserAttribute> attribute = userAttrRepository.findById(parameterDTO.getAttrId());
+                    parameterByName = attribute.map(a -> new UserParameter(a, parameterDTO.getValue(), u)).orElseThrow(() -> {
+                        throw new RuntimeException("no attr by :" + parameterDTO.getAttrId());
+                    });
+                }
+                newParameters.add(parameterByName);
+            }
+            u.setParameters(newParameters);
+        }
+    }
+
+    private void setField(String field, Consumer<String> setter) {
+        if (!StringUtils.hasLength(field)) {
+            setter.accept(null);
+        } else {
+            setter.accept(field);
+        }
     }
 }

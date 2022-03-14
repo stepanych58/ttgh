@@ -46,9 +46,9 @@ public class FixerUser {
     @Column
     protected UserRole role;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     private List<ClientOrder> orders;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user")
     private List<UserParameter> parameters;
 
     public FixerUser(String name, String phoneNumber, UserRole role) {
@@ -86,6 +86,7 @@ public class FixerUser {
         }
         return null;
     }
+
     @Override
     public String toString() {
         return "USER{" +
