@@ -175,7 +175,7 @@ public class UserRestController {
                 UserParameter parameterByName = u.getParameterByName(parameterDTO.getName());
                 if (parameterByName != null) {
                     if (!StringUtils.hasLength(parameterDTO.getValue())) {
-                        userService.removeParameter(null, parameterByName.getId());
+                        userService.removeParameter(u, parameterByName.getId());
                         continue;
                     }
                     setField(parameterDTO.getValue(), parameterByName::setValue);
@@ -186,6 +186,12 @@ public class UserRestController {
                     });
                 }
                 newParameters.add(parameterByName);
+
+            }
+            for (UserParameter p : u.getParameters()) {
+                if (!newParameters.contains(p)){
+                    newParameters.add(p);
+                }
             }
             u.setParameters(newParameters);
         }

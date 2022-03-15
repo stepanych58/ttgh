@@ -38,6 +38,7 @@ public class UserService {
     }
 
     public void removeParameter(FixerUser user, BigInteger id) {
+        user.removeParameter(id);
         userParameterRepository.deleteById(id);
     }
     public List<FixerUser> getAllEngeeners() {

@@ -87,6 +87,14 @@ public class FixerUser {
         return null;
     }
 
+    public void removeParameter(BigInteger id) {
+        for (UserParameter p: getParameters()) {
+            if (p.getId().equals(id)) {
+                parameters.remove(p);
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "USER{" +
