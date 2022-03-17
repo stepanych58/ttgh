@@ -94,6 +94,9 @@ public class FixerApplication {
                     dima, emma,
                     getOrderParams("24/09/2020", "сломался Телевизор", "Телевизор", "photo"));
 
+            OrderAttribute time = new OrderAttribute("Время", AttrType.TIME);
+
+            attributeRepository.save(time);
             System.out.println("TEST DATA CREATED");
         };
     }
@@ -105,7 +108,7 @@ public class FixerApplication {
                                                String attr3,
                                                String attr4) {
         Map<String, String> params = new HashMap<>();
-        params.put("Когда приехать", attr1);
+        params.put("Дата", attr1);
         params.put("Напишите что произошло", attr2);
         params.put("Что чиним", attr3);
         params.put("Добавьте фото", attr4);
@@ -185,7 +188,7 @@ public class FixerApplication {
         OrderAttribute equipment = new OrderAttribute("Что чиним", AttrType.LIST, equipments);
         OrderAttribute description = new OrderAttribute("Напишите что произошло", AttrType.TEXT);
         OrderAttribute photo = new OrderAttribute("Добавьте фото", AttrType.TEXT);
-        OrderAttribute dateAttr = new OrderAttribute("Когда приехать", AttrType.DATE);
+        OrderAttribute dateAttr = new OrderAttribute("Дата", AttrType.DATE);
         OrderAttribute clientName = new OrderAttribute("Ваше Имя", AttrType.TEXT);
         OrderAttribute phoneNumber = new OrderAttribute("Ваш номер телефона", AttrType.PHONE_NUMBER);
         OrderAttribute address = new OrderAttribute("Ваш Адрес", AttrType.ADDRESS);
