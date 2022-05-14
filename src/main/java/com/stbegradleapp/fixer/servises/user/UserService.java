@@ -2,7 +2,6 @@ package com.stbegradleapp.fixer.servises.user;
 
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.params.user.UserAttribute;
-import com.stbegradleapp.fixer.model.params.user.UserParameter;
 import com.stbegradleapp.fixer.model.params.user.UserRole;
 import com.stbegradleapp.fixer.repositories.FixerUserRepository;
 import com.stbegradleapp.fixer.repositories.UserAttrRepository;

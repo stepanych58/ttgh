@@ -2,6 +2,7 @@ package com.stbegradleapp.fixer.controllers.rest;
 
 import com.stbegradleapp.fixer.dto.ClientOrderDTO;
 import com.stbegradleapp.fixer.dto.OrderParameterDTO;
+import com.stbegradleapp.fixer.dto.UpdateOrderDTO;
 import com.stbegradleapp.fixer.model.ClientOrder;
 import com.stbegradleapp.fixer.model.FixerUser;
 import com.stbegradleapp.fixer.model.OrderStatus;
@@ -17,6 +18,7 @@ import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -137,6 +139,39 @@ public class OrderRestController {
 
         orderRepository.save(toSave);
         return order;
+    }
+
+    @PatchMapping(path = "update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ClientOrderDTO update(@RequestBody UpdateOrderDTO order, Authentication auth) {
+        log.info("order/update");
+        String clientPhone=null;
+        if (auth != null) {
+            clientPhone = auth.getName();
+            log.info("clientPhone {}", clientPhone);
+        }
+        Optional<FixerUser> clientObj = userRepository.findByPhoneNumber(clientPhone);
+//        ClientOrder toSave = modelMapper.map(order, ClientOrder.class);
+        FixerUser client = clientObj.orElseThrow(() -> new RuntimeException("no client"));
+//        toSave.setClient(client);
+        ClientOrder oldOrder = orderRepository.findById(order.getId()).get();
+        List<OrderParameter> newParams = new ArrayList<>();
+        if (CollectionUtils.isEmpty(order.getParameters())) {
+            oldOrder.setParameters(Collections.emptyList());
+        } else {
+            for(Map.Entry<BigInteger, String> entry : order.getParameters().entrySet()) {
+                OrderParameter parameter = oldOrder.getParameter(entry.getKey());
+                if (parameter != null) {
+                    parameter.setValue(entry.getValue());
+                } else {
+                    parameter = new OrderParameter(orderAttributeRepository.findById(entry.getKey()).get(),
+                        entry.getValue());
+                }
+                newParams.add(parameter);
+            }
+        }
+        oldOrder.setParameters(newParams);
+        ClientOrder save = orderRepository.save(oldOrder);
+        return modelMapper.map(save, ClientOrderDTO.class);
     }
 
     @DeleteMapping(path = "/delete/{orderId}")

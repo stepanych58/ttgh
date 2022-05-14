@@ -67,7 +67,7 @@ public class FixerApplication {
             createUser(userAttrRepository, userParameterRepository, userRepository, dima, dimaParams);
 
             FixerUser sveta = new FixerUser("Света", "Хорошева", passwordEncoder.encode("111"),
-                    "89276976454", UserRole.CLIENT);
+                        "89276976454", UserRole.CLIENT);
             Map<String, String> svetaParams =
                     getUserParams("sveta@yandex.ru", "Астрахань, ул. Чапаева д. 18б, кв 123", "Хорошева");
             createUser(userAttrRepository, userParameterRepository, userRepository, sveta, svetaParams);

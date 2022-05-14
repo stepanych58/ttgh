@@ -2,6 +2,7 @@ package com.stbegradleapp.fixer.model;
 
 import com.stbegradleapp.fixer.model.params.order.OrderParameter;
 import lombok.Getter;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import java.math.BigInteger;
@@ -31,6 +32,11 @@ public class ClientOrder {
 
     public void setParameters(List<OrderParameter> parameters) {
         this.parameters = parameters;
+        if (!CollectionUtils.isEmpty(parameters)){
+            for (OrderParameter p : parameters) {
+                p.setOrder(this);
+            }
+        }
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order",
@@ -91,4 +97,25 @@ public class ClientOrder {
                 .append("}");
         return res.toString();
     }
+
+    public OrderParameter getParameter(BigInteger attrId) {
+        List<OrderParameter> parameters = getParameters();
+        if (CollectionUtils.isEmpty(parameters)) {
+            return null;
+        }
+        for (OrderParameter p : parameters) {
+            if (p.getAttribute().getId().equals(attrId)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public void addParameter(OrderParameter parameter) {
+        List<OrderParameter> parameters = getParameters();
+        parameters.add(parameter);
+        setParameters(parameters);
+    }
+
+
 }
