@@ -51,7 +51,7 @@ public class FixerApplication {
             storageService.init();
             createTestOrderAttrs(attributeRepository);
             createTestUserAttrs(userAttrRepository);
-
+//sdsfdfs
             FixerUser salavat = new FixerUser("Салават", passwordEncoder.encode("111"), "89279874356", UserRole.ROLE_ADMIN);
             FixerUser ksusha = new FixerUser("Ксюша", passwordEncoder.encode("111"), "89279874355", UserRole.ROLE_ADMIN);
             userRepository.saveAll(List.of(salavat, ksusha));
