@@ -22,12 +22,24 @@ spring:
       initialize-schema: always
     timeout:
       seconds: '900'
-
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:mydb
+#    username: sa
+#    password: password
+#    driverClassName: org.h2.Driver
+#  jpa:
+#    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console.enabled: true
   datasource:
-    password: 1q2q3q
-    driver-class-name: org.postgresql.Driver
     username: postgres
-    url: jdbc:postgresql://localhost:5432/postgres
+    password: 1q2q3q
+    driver-class-name: org.h2.Driver
+    jpa:
+      spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+#    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:h2:file:./demo
 #    data: create_test_data.sql
 
   jackson:
@@ -35,8 +47,6 @@ spring:
       FAIL_ON_EMPTY_BEANS: 'false'
 logging:
   level:
-    org:
-      springframework: DEBUG
     com:
       stbegradleapp: DEBUG
 server:
