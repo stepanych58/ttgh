@@ -49,8 +49,8 @@ logging:
   level:
     com:
       stbegradleapp: DEBUG
-server:
-  port: '8050'
+#server:
+#  port: '8050'
 
 # App Properties
 bezkoder:
